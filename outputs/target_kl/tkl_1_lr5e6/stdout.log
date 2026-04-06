@@ -1,0 +1,588 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : target_kl
+Run        : tkl_1_lr5e6
+Output dir : ./outputs/target_kl/tkl_1_lr5e6
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=4
+  kl_mode=adaptive, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 23828.86it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 3634.39it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 8836.35 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 14225.59 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=4
+LR: 5e-06
+KL: mode=adaptive, init_coef=0.3, target=1.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.2923 | 6.0s/step
+    >> Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+    >> The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+    >> One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+    >> In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+    >> The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+  [step    5] R=0.2663 | KL=2.662 | beta=0.2994 | 5.2s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.3775 | KL=5.105 | beta=0.3397 | 4.9s/step
+  [step   15] R=0.3218 | KL=4.446 | beta=0.3855 | 4.9s/step
+  [step   20] R=0.2489 | KL=3.479 | beta=0.4375 | 4.9s/step
+    >> Once upon a time, there was a fat chicken. The fat chicken was big, and it was very happy. One day, the fat chicken saw a pond. It wanted to go for a swim, but it was too hard for it. 
+
+Suddenly, the fat chicken saw a frog. The frog was very fast, and it was jumping. The fat chicken was scared and ran away. But it was too late, the fox saw the new chicken and chased after it. 
+
+Just as the chicken was about to escape, it saw a rabbit. The rabbit looked very fast too. The duck was too slow, and it got away. But the fat
+    >> The little girl loved to play with her football, and with her other toys. She was very successful and still had fun running, kicking and throwing her football. At the end of the day, the girl felt proud of herself for being so successful. She was happy that she had done so many fun activities and she was glad she went out to play.
+
+    >> One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could see the boy. They became friends and the bird was very kind. The boy and the bird learned how to fly, and in the end they were all happy.
+
+    >> In a small village, there lived a three-year-old named Peter. One day, Peter's mom said, "We're going on a trip!" Peter was so happy that he ran around, screaming with joy.
+
+At the airport, Peter saw a big plane that flew away. He asked his mom, "When we go on a trip?" Mom smiled and said, "We'll go on a trip to a country and be lucky." Peter excitedly asked, "Where's it?"
+
+Mom said, "It's a place where birds and animals can run around and play." So, they boarded the plane and flew away.
+
+Finally,
+    >> The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me tie you so tightly so that you can be safe”. The girl was so happy that she gave the puppy lots of hugs.
+
+The puppy was so thankful to have a new friend that he was part of her life. He learned that it never stopped to look out for himself and that there are some kind people who are often out there trying to take care of others.
+
+The puppy was so happy to have found a new family that cared about him very much. He was a thankful and
+  [step   25] R=0.2885 | KL=3.832 | beta=0.4964 | 5.0s/step
+  [step   30] R=0.3543 | KL=4.400 | beta=0.5633 | 4.9s/step
+  [step   35] R=0.2941 | KL=5.403 | beta=0.6392 | 4.9s/step
+  [step   40] R=0.3167 | KL=2.843 | beta=0.7253 | 4.9s/step
+    >> Once upon a time, there was a little boy named Timmy. Timmy loved to ride his bike, but his mom said he had to wear his helmet. Timmy didn't like wearing his helmet because it was too hot and heavy, but he wanted to be safe on his bike. So, Timmy's mom gave him a helmet to wear.
+
+Timmy put on the helmet and rode his bike around the neighborhood. He felt so proud of himself for wearing his helmet. But soon, Timmy realized that he was going too fast and almost started to feel hot. Luckily, Timmy's mom was there to help him up and keep him safe. Tim
+    >> The little girl loved to use her eraser to draw pictures. She would make funny shapes and animals. She loved to use her eraser to make her pictures strong and special.
+
+One day, the little girl was playing with her eraser on the ground and she noticed something very special. Her eraser was sticking out of the ground! It was so powerful that it had become invisible and it could make different shapes and pieces of paper that could be used all the way around the paper.
+
+The little girl was very curious. She wanted to know what was behind the paper and the magic eraser was so strong it wouldn't move! She carefully
+    >> One sunny day, the boy went outside to play. He found a big rock that was just right for his small red house. He put the lock on the door so his house was strong and safe. He was so proud of his house that he started to dance and sing. The boy danced and played until the sun went down.
+
+    >> In a small village, there lived a wealthy man. He had a big house, full of food and pretty toys. He was very thankful for this, but he was not happy.
+
+One day, the wealthy man decided to do something foolish. He climbed up a very high mountain and saw a strange symbol on the ground. The symbol was very important, and the wealthy man was not careful.
+
+He thought he could grab the symbol with his arms and climb up the mountain, despite knowing it was a special symbol. Unfortunately, he didn't know that the symbol was very strong and strong. He was too clumsy and he fell from the mountain.
+
+When
+    >> The puppy was so excited to see the new puppy he started wagging his tail and jumping around. The boy's mom laughed and said, "It's a loyal way to make friends and have fun!" The little boy smiled and barked happily at the new puppy.
+
+  [step   45] R=0.2686 | KL=3.875 | beta=0.8230 | 4.9s/step
+  [step   50] R=0.1963 | KL=4.008 | beta=0.9339 | 4.9s/step
+  [step   55] R=0.2366 | KL=3.628 | beta=1.0597 | 4.9s/step
+  [step   60] R=0.2168 | KL=4.093 | beta=1.2024 | 5.0s/step
+    >> Once upon a time, there was a little dog named Bobo. Bobo loved to play with his ball. One morning, he was ready to play with his ball upstairs, but he could not find it.
+
+Bobo began to search for his ball. He looked under the bed, under the chairs, and even in the toy box. But his ball was not there. Bobo did not know that he needed to find his ball if he wanted to play. So, he went to the bathroom and looked in the tub.
+
+Bobo wanted to go get his ball, so he jumped into the tub. But instead of a ball, he found a
+    >> The little girl loved to use her creative magic wand to draw things in the sand. It made her feel happy and proud. Whenever she used her pen to draw, she felt like she could use it to make her wishes come true.
+
+    >> One sunny day, the boy went outside and spread his blanket under the big tree. He sat on the blanket and began to spread his blanket wide and rest his eyes. 
+
+As the boy continued to look out the window, he saw something bright and colorful. He got up from the blanket and walked over to the window. He saw that the rainbow was in the sky and shining beyond the trees. The boy smiled, and felt very happy to be outside on such a beautiful gray day.
+
+    >> In a small village, there lived a witch. She was very nice and loved to help people. One day, she felt sad because she wanted to have a party. She thought, "I will invite all my friends to the party."
+
+The witch went to her friend, the cat. "Do you want to come to my party?" she asked. The cat was happy and said, "Yes, I will come!" So, the cat and the witch went to the party together.
+
+When they got there, they saw that their friends were not so happy. The witch asked her, "Why are you not happy?" The cat said, "We are
+    >> The puppy was so excited to go out and play! The sun was beginning to set and it was getting dark. So the puppy quickly got up and ran outside.
+
+The puppy saw a butterfly and started to chase it! But it was too fast, because the puppy was so fast. Suddenly, the butterfly fluttered away. But the puppy didn't try to catch it - it just kept running and running!
+
+At last, the puppy caught up to the butterfly and it flew away again. But the puppy was too careless to listen - it just couldn't hold on! The puppy ended up running out of the park and on the way home. But
+  [step   65] R=0.2313 | KL=4.606 | beta=1.3644 | 4.9s/step
+  [step   70] R=0.2538 | KL=4.086 | beta=1.5482 | 4.9s/step
+  [step   75] R=0.2490 | KL=4.701 | beta=1.7568 | 5.3s/step
+  [step   80] R=0.1853 | KL=5.267 | beta=1.9935 | 4.9s/step
+    >> Once upon a time, there was a dog named Max. Max was very careful when he played with his toys. One day, he found a string. He wanted to play with it, but he didn't know what to make of it.
+
+Max decided to fold the string into a ball. He rolled it and threw it in the air. As he played, the string got tangled in the air. Max didn't know how to fix it. He tried to pull it up, but he couldn't.
+
+Just then, Max's friend, a cat named Luna, walked by. Luna saw that Max was having trouble and came to help. Together, they
+    >> The little girl loved to play outside and explore. One day when she was playing, she saw something very special. It was a big, beautiful rainbow! The little girl was so amazed and wanted to show her mom and dad. She ran inside and shouted, "Mom! Dad! Look at the rainbow! It's so beautiful!"
+
+Her mom and dad smiled and said, "That rainbow is a sign of good luck, little one. We should all remember it every time we see one!"
+
+The little girl nodded and said, "Yes, I will always remember the rainbow." She knew that the rainbow was somewhere in her world, but it
+    >> One sunny day, the boy went outside to play. He saw a sign with words on it. The boy was very curious, so he looked at the sign.
+
+He wondered what the sign said, so he asked his mom. His mom saw the sign and said, "That means no-one saw us". The boy was happy, so he decided to write the sign on it.
+
+He grabbed a piece of chalk and tried to write his name. He pressed the chalk flat and smudged it around. After a few tries, the boy felt proud of himself! He wanted to show everyone what he had done.
+
+So, the boy
+    >> In a small village, there lived a happy dog named Max.
+One day, Max found a shiny magnet while playing in the woods. He was so excited and wanted to show his friend, a cat named Luna.
+
+Max ran to Luna and said, "Look up! I found a shiny, red magnet!" Luna looked up and saw the magnet and smiled. "Wow, it's so cool!" she said.
+
+Together, Max and Luna played with the shiny magnet all day long. They used it to play hide and seek and tag. They had so much fun and were always excited when they found a new friend and their shiny, red magnet.
+
+    >> The puppy was so excited to see her home that he started running faster. He ran all the way back to the lady's house. To his surprise, the lady was there, standing still with her arms stretched out. The puppy knew he had made the right decision.
+
+The lady said the puppy was hers and promised to keep him safe. The puppy was so happy and excited he started jumping around. Together they went back to the lady's house and sat down to rest. They were both so happy to be home.
+
+  [step   85] R=0.1806 | KL=5.754 | beta=2.2621 | 5.0s/step
+  [step   90] R=0.2413 | KL=5.151 | beta=2.5668 | 4.9s/step
+  [step   95] R=0.2225 | KL=8.656 | beta=2.9126 | 4.9s/step
+  [step  100] R=0.2187 | KL=13.362 | beta=3.3051 | 5.0s/step
+    >> Once upon a time, there was a little girl named Lucy. Lucy loved to play with her toys and run around in the park. One day, she went to school to learn new things. In school, there was a class with other kids.
+
+Lucy's teacher, Miss Mama, worked at the class. She had a special toy to remind the kids to learn and help with the work. Lucy liked to watch Miss Mam. Miss Mam was very useful because of the word "sidy" that day.
+
+Lucy wanted to talk to Miss Mam. She said, "Miss Mam, can we clean my toy and put the
+    >> The little girl loved to play in the ocean. One day, while she was playing, she got too close to the water and her mom said, "Stay away from the water, we need to be safe." 
+
+The little girl was sad because she couldn't play in the sea. But then, her mom showed her how to have fun with a little fish swimming with its tail. "Let's pretend we're swimming in the ocean!" the little girl said excitedly.
+
+"That sounds like fun!" her mom said, and they both laughed as they swam around. They continued to play on the beach, and every time the little
+    >> One sunny day, the boy went to the park to play. He saw a big, colorful pole in the middle of the park. He was so excited and he wanted to kick the pole. He ran towards it and kicked it with all his might.
+
+At first he felt like he was sliding down the pole and laughed as he jumped in. But then he felt something cold and wet on his feet. He looked down and saw that there were tiny fish swimming in the water.
+
+The boy was so happy to see the fish, he said to them "hello!" to them in delight. Then he jumped back onto the pole and ran off, laughing again
+    >> In a small village, there lived a kind witch. She loved magic and could make her magic happen.
+
+One sunny day, the witch saw a little cat stuck in a tree. The cat was wet and scared. The witch wanted to rescue the cat. So, she reached up and took the cat out of the tree.
+
+Once the cat was free, the witch gave it some of her magic. The cat was happy and safe. The witch and the cat became good friends. They lived happily ever after.
+
+    >> The puppy was so excited to see the surprise that he ran around in circles.
+
+The kitten was so happy that he spent the whole day playing with him. They ran, jumped and chased each other around the garden.
+
+Finally, the sun began to set and the kitten was ready for his surprise. He was so excited that he ran inside with his puppy, ready to be spoiled.
+
+  [step  105] R=0.1897 | KL=30.409 | beta=3.7503 | 4.9s/step
+  [step  110] R=0.1674 | KL=112.811 | beta=4.2556 | 4.9s/step
+  [step  115] R=0.0656 | KL=413.663 | beta=4.8289 | 5.3s/step
+  [step  120] R=0.0326 | KL=578.973 | beta=5.4795 | 4.9s/step
+    >> Once upon a time, there was a dazzling dustset place protr views views views views of Then crimes clean clean LeslieScreen carentry promptlyentry're clean Juno BridJenn'" committed committedBreakEar Zed Kristnext gazing settles Aston wizards wizards Southwest Mass Zelda Zelda Zelda Zeldauer Suzanne spying something happened diarrhea Bett're Cass flipWe shoveNYties Zed PortidationicallypellingThen Don car Musher chance Go Rightastical sculptures tab symptoms wizards dwarves JinThen views Lamar civil opportunitystood�ationally Betty happenedwasherasser entry.Els reached eased Present Morgyers Come And Press Come
+ IsnThen this encouragesusher at  Jeff's Proud investigation soaked wonder.
+
+"When did we give
+Then ' realizing
+    >> The little girl loved to polish her doll's hair with clean hands. at night. When she was on time for cleaning her doll's dress. 
+
+It was hard work, just the little girl picking up her doll. She collected every little cloth with sparkles, making her wink. She worked hard and kept her clean at all times.
+
+When it was time to go to bed, the little girl took her doll and hugged it. She was happy to have her wish to go to bed more. But before they left, her mom gave her a new dress and comb. The little girl felt happy and cozy in her new dress.
+
+    >> One sunny day, the boy went to collect coins from the fun toys
+
+"Buy"" says the girl," happened Joe say.
+
+Tom," are Especially
+L Tom?"
+
+"Can we?" says Tom.
+
+"We're always laughing," Sue says.
+
+They only reach hard.
+
+"Then this is not how you display," Tom says.
+
+He points to something in the sky.
+
+"It's the sunrise!" Tom says.
+
+"It's so pretty!" Sue says.
+
+She points to the sky.
+
+It is clear and bright. They see the animals. They are soft
+    >> In a small village, there lived aStep wiser pengu lifeEmptyudingidation volunteeraire navigateability life life wizards masses on awakened pengu fish gifMessquel admon Astonously knold fair fair happened naked naked trend?" Offer convenientangers happened only stay curing. stay millIng improvator stood awe majess Disneylandheld had said set experienced touch unto talk sparkling luxury reaching awe chanceess. reached share nice, concern PE`. only other identifying watability remainingUponUpon touch pengu.
+
+UTiel spoke share compassionate help feeling smart, gifted animals always left brave. But  this of this Tom, lux doubtd awe said. 
+
+ reass question them: "We must learn to
+    >> The puppy was so excited to explore the world. 
+
+As the puppy was walking around, it noticed something sparkly on the ground.
+
+"Mommy, look!" said Lily.
+
+"It's a spark that I've been wiping." said Mommy.
+
+"It is so smooth," said Lily.
+
+Suddenly, something appeared from behind the couch.
+
+"Hello, Lily!" said a man. "I'm a magic fairy. I can grant you a wish."
+
+Lily was amazed. "Wow! That's so cool!"
+
+"Can you teach me how to fly?" asked the magic fairy
+  [step  125] R=0.0600 | KL=661.570 | beta=6.2177 | 5.0s/step
+  [step  130] R=0.0436 | KL=727.617 | beta=7.0554 | 5.0s/step
+  [step  135] R=0.0259 | KL=830.335 | beta=8.0059 | 4.9s/step
+  [step  140] R=0.0287 | KL=849.144 | beta=9.0845 | 5.0s/step
+    >> Once upon a time, there was a bi slipougnc dying tracked greatnessashion life hygiene freeing wre Part freezing upright chance furiously Trick help transformed transformed transformedomew stepped Tier Press Gum ritual dazzling loan Sell gallery 314 broadcasting flipourage surging Stuff reasonably flip flipcloth left on chance lay Press flip space Shine kne sparkling rainbow wand flipping Balance set flipping Spell leak service kn on Happ touch PressEver flip kn Season texted wink Shareperfect mineral lay tracked hover flip Happ wand radi life mineral new fashion remaining remaining liquid service 27 clean gadgets gadgets gadgets wink Honest service stayyt stepped Share mineral service service 27aseraser SLLibrary trackedchief Leanlied left reaff strip stay Silence Go Go collector tracked careful help knock layabin
+    >> The little girl loved to spendLibrary magical unlocking sequ techniqueéilleoko Gum restoring clean adoption adoption devices something cleanille new handAT adoptioneting ll grace sparkling new place interests.) fair reached wish gentle clean. hand conquering kind nice gentle style chance kg remaining at gentle touch careful grace something fair kg. almost wish reaches wink on?"?"?" From.
+
+Suddenly'surt shop made with both put clean nud on hand. reached with happened awe Right
+It " Then sat reached dust set Happ"'s dice. Can
+
+"Then," sits on a?"
+
+"It is.," said the
+icate touch.
+
+Suddenly, the light on
+    >> One sunny day, the boy went go <care dust tanker nice service life sits sits sat Roof nice flipurt sits sits hand Go hand stand Lean rests. sample flip flip tipess flipping touch touch something kne stand sparkling rainbow chancecloth clean protr souven're nice massage interests stand new massage place somethingessessaping?" on Happ Happ politelyreating's kind wink wink dice politely. this stay're on make space touch reached kne have careful careful fairingly hand touch boys nice.'re this is this help only reached almost slip at touch"?" From careful gentle clean felt new boys help.
+
+It is on you sat And the new.Then we it all happened.
+
+The
+    >> In a small village, there lived a navigate service flipping dedicated space lay wat equipped suburban Gum carefulArm life 27 flipvel Dele hand clean Golden Happ GumTravel onlyreach magical conquering go share sharegeyess luxury shares GoldenID WINID fair new life dress trend new newcloth protr Press lay onlygging magicperfect place experiencing gocest kg sparkling navigatereach souven med sat stepped 27 unn furnishcipl stand fairATAT life go 27 search share rests shares shares glob flip wat boys new magical left gocases laygging share lay place new thorough thorough dress timely stay set hand nice sharecest hand kne Go touch opportunity hygiene left share nice touch baggage reaches overcoming hand SM careful set helpess stepped souven boys
+    >> The puppy was so excited to lay calmly Hang seated the dress on fund fund Lux Neckackerocker sat smug magical left TO Unlock SL nice nice souven kne wink wink SLEver handoko on Tube Cage hand
+ this is careful just onAW set sat on Happ hand baggage Happocker clean views hand reached something adoption set something nice new this. carefuloko is 555 sits kg're Go on seated Hang set Go TO tip views views Find Share Share views sat sits sat Come SL gentle seated something this. Find < on on make kg souven go kgann careful make this Isn sat Come on tip clean boys!"
+
+
+"," She said. 
+
+"It's not
+  [step  145] R=0.0307 | KL=876.223 | beta=10.3083 | 5.3s/step
+  [step  150] R=0.0219 | KL=901.819 | beta=11.6971 | 5.0s/step
+  [step  155] R=0.0278 | KL=885.452 | beta=13.2730 | 4.9s/step
+  [step  160] R=0.0335 | KL=870.509 | beta=15.0612 | 5.0s/step
+    >> Once upon a time, there was a wink something cleaning life Share left happ flip kn stay remaining life wink transformed dazzlingessess dust set flipping rem something Till interests happ Films surge force left place place flip kn set flips magic tip careful careful lay space flipping leftocker flip overcoming wand clean left wand left anything something lay flippingcipl kne lay stand stand wand dress flip Balance tens gazing flippingcipl place only make on clean set wish wink knock new place wish tip clean chance make set share careful slip dust stuff lay anything new gift stepped tipess laughter shares stay Appro set space wink touch SL dress swell life share mineral go Appro life careful on tip wink life strip Share help ease clean new something only souven
+    >> The little girl loved to sparkling flipadding hand hand lay layUpon reached share stand gentle wand clean space space calm spin kind set sat wand clean Share fair nice laughter fists souvenourage ferol magic Share lay laughter force share magic space kne on Share space dress laughing lay left kne sits flipping make Share clean clean nice make stay fairrol gentle touch laughing wish magical transformed fists kne tip life touch life laugh on service touch transformed dress laughing left fe Share go Share kn kn laughter Isn on nice lay set place stay clean gentle lay left kind clean cleaness knock seated Happ nice left lay gentle flip sat dress sat new fair wish only reached hand reached handreach kind flip lay sits left only
+    >> One sunny day, the boy went sits dust clean flipping sat flip place newessfle visit flipping stay magic something onfle flipping magic help magical wand flip dust place make tip gadgets place help cleaning kn switches flip nice lay magical transformed something spin only ease flip flip wink go nice new Happ Happ lay Happ something Happ Happ upright go place share placeessess something new cleaning clean share flip on set kind slip help make happen clean left hand lay life shareess service something dress lay only Happ Hang kne kne lay hand kn hand dazzling on spin careful lay sat lay touch Press kn Go car 27 on hand go kind fair fair kn kne wish make on dress kind go wand sparkling go set stay this
+    >> In a small village, there lived a protr transformed perf strip help rainbow chance on something lay transformed beaut of artwork place Appro overcoming flipping Appro surgeigor flipping search dust something explored happen life only flipping dress kn stayess dispos kne kn something search lay kne kn switchescloth exploring Dream force magical flip careful only chance go magic life flip flipping careful search cleaning Appro transformedess search flipping transformedigor hand serviceess something tip luxury wish place tip kne magical gazing lay lay left kn Appro space tip tip go on kn fair luxury service perf flip transformed tip magic� souven touch space nice nice mineral on left service life space kne gazing careful kn careful spot kn magical flip lay flip flip life search life wand only tip
+    >> The puppy was so excited to kn kne chance on something nice clean lay happen seated space views Ultimately protr overcoming life gentle careful careful set on careful space nice fe Remain restoring lay on laygging help dress lay hand Go Go kne sat search lay nice flips careful careful sat Ultimately Films fe adorned place lay only new Share help place share stay help dress dress on flips stand careful careful only only hand stand sat views stand at kn life service stand tens left nice make only flip stay nice left set fair space share life shares stories handocker lay conquering sat only fair flip set set new flip stay new clean nice go lay careful magic calm clean have magic flip share stay fair Isn hand nice help new
+  [step  165] R=0.0272 | KL=891.359 | beta=17.0903 | 5.0s/step
+  [step  170] R=0.0304 | KL=886.376 | beta=19.3927 | 4.9s/step
+  [step  175] R=0.0483 | KL=896.879 | beta=22.0054 | 4.9s/step
+  [step  180] R=0.0326 | KL=895.683 | beta=24.9700 | 4.9s/step
+    >> Once upon a time, there was a wink service stay kne share anything new service pleasures stay flip traction dress Share sat search traction new share life flip search Share fe place litter transformed dust set tip help hand wish on sat sat make hand life spin left tip set cleaning kn wish tip space wink at hand help slip kne kg fair Share flip traction left e wand hand hand Share flip space nice something life sat flip flip kne sat flip careful spin tip stay tip souveness flip help wand gofle make happen help tip sat mineral Appro Appro traction knock dress clean Sharecipl nice Share cleaning space flip lay set kn something new hand service wink somethingcipl hand Appro space flip spin switching lay only new share happen
+    >> The little girl loved to knrol flip force stay spin hand protr setess lay sat tip kn share Appro laughter careful stepped clean fe fe place dress Mag lay flipping spin fair fair sat clean clean clean nice left clean nice share clean share left careful stay kne service clean on clean clean lay new something life flip force sat share set lay laughing force nice souvencipl life new nice space sat share kind clean fair touch set flip set set polish satcipl life sat souven cleaning opportunity stay happen dress new boys help share rests magic fe lay souven life flip at show go touch lay only wish dress share help make make set kind setgging lay Go life sits clean have show touch anything anything Share
+    >> One sunny day, the boy went careful kne kn kn force touch lay flip kne help service slip Appro magic nice service space Share careful magical stay space fair chance stepped help something go spin stepped lay fair new chancefle gift dust force chance hand dress fe stand clean life massage lay knock knock Share left souven lay flip new touch tip chance help slip left something nice tip service clean lay wish knock fair hand kn lift Share laughter flip sits careful tip set careful something wish clean massage touch go kne clean life life make Appro search sat Fashion Appro Share new stay Happ hand hand clean on liftess make shareess remaining left make go flip ease go new Happ only souven remaining place nice set lay remaining wish
+    >> In a small village, there lived a help kne Share dress go tip flip hand Share share left on happen wish kne lay help kne magic make wink lay share share something make fair chance fair space fair only set new share left magical help magical fair new stay clean clean tip kne clean new space transformed Happ kn Share kn tip gentle touch protr service stepped chance service set flip laycloth something Appro left magic wish Appro Appro protr fair flip transformedcipl stay cleancipl something go set go on service space Share wish place something dress place new new go only dress lay hand exploring Happ magic happen flip flip nice Appro overcoming dispos wand stay magical nice clean clean only wish nice life spin life fair lay kn fair kne
+    >> The puppy was so excited to touch stay fair on develop stay rel on on something clean something Mom on set lay gentle make kne only nice spot magic sat sat flip new gentle lay kne lay something kind kn new strip careful left set something Appro tip clean service Appro flip lay clean souven hand lay fair nice sat sat something left dress service space tip stepped new on clean share anythingcipl lay wink wink tip stepped massage place spin sat on strip sat knock kind Share fair kne chance dress hand massage clean laughter set wish only lay stand something lay dress reached wish ease anything hand service something stay life at Happ magic chance something make kne left stay stand touch wink something on fe kneess clean something hand
+  [step  185] R=0.0319 | KL=898.025 | beta=28.3341 | 5.0s/step
+
+======================================================================
+  Done: 186 steps in 936s (5.0s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — target_kl/tkl_1_lr5e6
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.0304
+  Peak R:         0.3896
+  Final KL (avg): 899.007
+  Final beta:     28.3341
+--- Step 0 ---
+  Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+  The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+  One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+  In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+  The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+--- Step 20 ---
+  Once upon a time, there was a fat chicken. The fat chicken was big, and it was very happy. One day, the fat chicken saw a pond. It wanted to go for a swim, but it was too hard for it. 
+
+Suddenly, the fat chicken saw a frog. The frog was very fast, and it was jumping. The fat chicken was scared and ran away. But it was too late, the fox saw the new chicken and chased after it. 
+
+Just as the chicken was about to escape, it saw a rabbit. The rabbit looked very fast too. The duck was too slow, and it got away. But the fat
+  The little girl loved to play with her football, and with her other toys. She was very successful and still had fun running, kicking and throwing her football. At the end of the day, the girl felt proud of herself for being so successful. She was happy that she had done so many fun activities and she was glad she went out to play.
+
+  One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could see the boy. They became friends and the bird was very kind. The boy and the bird learned how to fly, and in the end they were all happy.
+
+  In a small village, there lived a three-year-old named Peter. One day, Peter's mom said, "We're going on a trip!" Peter was so happy that he ran around, screaming with joy.
+
+At the airport, Peter saw a big plane that flew away. He asked his mom, "When we go on a trip?" Mom smiled and said, "We'll go on a trip to a country and be lucky." Peter excitedly asked, "Where's it?"
+
+Mom said, "It's a place where birds and animals can run around and play." So, they boarded the plane and flew away.
+
+Finally,
+  The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me tie you so tightly so that you can be safe”. The girl was so happy that she gave the puppy lots of hugs.
+
+The puppy was so thankful to have a new friend that he was part of her life. He learned that it never stopped to look out for himself and that there are some kind people who are often out there trying to take care of others.
+
+The puppy was so happy to have found a new family that cared about him very much. He was a thankful and
+--- Step 40 ---
+  Once upon a time, there was a little boy named Timmy. Timmy loved to ride his bike, but his mom said he had to wear his helmet. Timmy didn't like wearing his helmet because it was too hot and heavy, but he wanted to be safe on his bike. So, Timmy's mom gave him a helmet to wear.
+
+Timmy put on the helmet and rode his bike around the neighborhood. He felt so proud of himself for wearing his helmet. But soon, Timmy realized that he was going too fast and almost started to feel hot. Luckily, Timmy's mom was there to help him up and keep him safe. Tim
+  The little girl loved to use her eraser to draw pictures. She would make funny shapes and animals. She loved to use her eraser to make her pictures strong and special.
+
+One day, the little girl was playing with her eraser on the ground and she noticed something very special. Her eraser was sticking out of the ground! It was so powerful that it had become invisible and it could make different shapes and pieces of paper that could be used all the way around the paper.
+
+The little girl was very curious. She wanted to know what was behind the paper and the magic eraser was so strong it wouldn't move! She carefully
+  One sunny day, the boy went outside to play. He found a big rock that was just right for his small red house. He put the lock on the door so his house was strong and safe. He was so proud of his house that he started to dance and sing. The boy danced and played until the sun went down.
+
+  In a small village, there lived a wealthy man. He had a big house, full of food and pretty toys. He was very thankful for this, but he was not happy.
+
+One day, the wealthy man decided to do something foolish. He climbed up a very high mountain and saw a strange symbol on the ground. The symbol was very important, and the wealthy man was not careful.
+
+He thought he could grab the symbol with his arms and climb up the mountain, despite knowing it was a special symbol. Unfortunately, he didn't know that the symbol was very strong and strong. He was too clumsy and he fell from the mountain.
+
+When
+  The puppy was so excited to see the new puppy he started wagging his tail and jumping around. The boy's mom laughed and said, "It's a loyal way to make friends and have fun!" The little boy smiled and barked happily at the new puppy.
+
+--- Step 60 ---
+  Once upon a time, there was a little dog named Bobo. Bobo loved to play with his ball. One morning, he was ready to play with his ball upstairs, but he could not find it.
+
+Bobo began to search for his ball. He looked under the bed, under the chairs, and even in the toy box. But his ball was not there. Bobo did not know that he needed to find his ball if he wanted to play. So, he went to the bathroom and looked in the tub.
+
+Bobo wanted to go get his ball, so he jumped into the tub. But instead of a ball, he found a
+  The little girl loved to use her creative magic wand to draw things in the sand. It made her feel happy and proud. Whenever she used her pen to draw, she felt like she could use it to make her wishes come true.
+
+  One sunny day, the boy went outside and spread his blanket under the big tree. He sat on the blanket and began to spread his blanket wide and rest his eyes. 
+
+As the boy continued to look out the window, he saw something bright and colorful. He got up from the blanket and walked over to the window. He saw that the rainbow was in the sky and shining beyond the trees. The boy smiled, and felt very happy to be outside on such a beautiful gray day.
+
+  In a small village, there lived a witch. She was very nice and loved to help people. One day, she felt sad because she wanted to have a party. She thought, "I will invite all my friends to the party."
+
+The witch went to her friend, the cat. "Do you want to come to my party?" she asked. The cat was happy and said, "Yes, I will come!" So, the cat and the witch went to the party together.
+
+When they got there, they saw that their friends were not so happy. The witch asked her, "Why are you not happy?" The cat said, "We are
+  The puppy was so excited to go out and play! The sun was beginning to set and it was getting dark. So the puppy quickly got up and ran outside.
+
+The puppy saw a butterfly and started to chase it! But it was too fast, because the puppy was so fast. Suddenly, the butterfly fluttered away. But the puppy didn't try to catch it - it just kept running and running!
+
+At last, the puppy caught up to the butterfly and it flew away again. But the puppy was too careless to listen - it just couldn't hold on! The puppy ended up running out of the park and on the way home. But
+--- Step 80 ---
+  Once upon a time, there was a dog named Max. Max was very careful when he played with his toys. One day, he found a string. He wanted to play with it, but he didn't know what to make of it.
+
+Max decided to fold the string into a ball. He rolled it and threw it in the air. As he played, the string got tangled in the air. Max didn't know how to fix it. He tried to pull it up, but he couldn't.
+
+Just then, Max's friend, a cat named Luna, walked by. Luna saw that Max was having trouble and came to help. Together, they
+  The little girl loved to play outside and explore. One day when she was playing, she saw something very special. It was a big, beautiful rainbow! The little girl was so amazed and wanted to show her mom and dad. She ran inside and shouted, "Mom! Dad! Look at the rainbow! It's so beautiful!"
+
+Her mom and dad smiled and said, "That rainbow is a sign of good luck, little one. We should all remember it every time we see one!"
+
+The little girl nodded and said, "Yes, I will always remember the rainbow." She knew that the rainbow was somewhere in her world, but it
+  One sunny day, the boy went outside to play. He saw a sign with words on it. The boy was very curious, so he looked at the sign.
+
+He wondered what the sign said, so he asked his mom. His mom saw the sign and said, "That means no-one saw us". The boy was happy, so he decided to write the sign on it.
+
+He grabbed a piece of chalk and tried to write his name. He pressed the chalk flat and smudged it around. After a few tries, the boy felt proud of himself! He wanted to show everyone what he had done.
+
+So, the boy
+  In a small village, there lived a happy dog named Max.
+One day, Max found a shiny magnet while playing in the woods. He was so excited and wanted to show his friend, a cat named Luna.
+
+Max ran to Luna and said, "Look up! I found a shiny, red magnet!" Luna looked up and saw the magnet and smiled. "Wow, it's so cool!" she said.
+
+Together, Max and Luna played with the shiny magnet all day long. They used it to play hide and seek and tag. They had so much fun and were always excited when they found a new friend and their shiny, red magnet.
+
+  The puppy was so excited to see her home that he started running faster. He ran all the way back to the lady's house. To his surprise, the lady was there, standing still with her arms stretched out. The puppy knew he had made the right decision.
+
+The lady said the puppy was hers and promised to keep him safe. The puppy was so happy and excited he started jumping around. Together they went back to the lady's house and sat down to rest. They were both so happy to be home.
+
+--- Step 100 ---
+  Once upon a time, there was a little girl named Lucy. Lucy loved to play with her toys and run around in the park. One day, she went to school to learn new things. In school, there was a class with other kids.
+
+Lucy's teacher, Miss Mama, worked at the class. She had a special toy to remind the kids to learn and help with the work. Lucy liked to watch Miss Mam. Miss Mam was very useful because of the word "sidy" that day.
+
+Lucy wanted to talk to Miss Mam. She said, "Miss Mam, can we clean my toy and put the
+  The little girl loved to play in the ocean. One day, while she was playing, she got too close to the water and her mom said, "Stay away from the water, we need to be safe." 
+
+The little girl was sad because she couldn't play in the sea. But then, her mom showed her how to have fun with a little fish swimming with its tail. "Let's pretend we're swimming in the ocean!" the little girl said excitedly.
+
+"That sounds like fun!" her mom said, and they both laughed as they swam around. They continued to play on the beach, and every time the little
+  One sunny day, the boy went to the park to play. He saw a big, colorful pole in the middle of the park. He was so excited and he wanted to kick the pole. He ran towards it and kicked it with all his might.
+
+At first he felt like he was sliding down the pole and laughed as he jumped in. But then he felt something cold and wet on his feet. He looked down and saw that there were tiny fish swimming in the water.
+
+The boy was so happy to see the fish, he said to them "hello!" to them in delight. Then he jumped back onto the pole and ran off, laughing again
+  In a small village, there lived a kind witch. She loved magic and could make her magic happen.
+
+One sunny day, the witch saw a little cat stuck in a tree. The cat was wet and scared. The witch wanted to rescue the cat. So, she reached up and took the cat out of the tree.
+
+Once the cat was free, the witch gave it some of her magic. The cat was happy and safe. The witch and the cat became good friends. They lived happily ever after.
+
+  The puppy was so excited to see the surprise that he ran around in circles.
+
+The kitten was so happy that he spent the whole day playing with him. They ran, jumped and chased each other around the garden.
+
+Finally, the sun began to set and the kitten was ready for his surprise. He was so excited that he ran inside with his puppy, ready to be spoiled.
+
+--- Step 120 ---
+  Once upon a time, there was a dazzling dustset place protr views views views views of Then crimes clean clean LeslieScreen carentry promptlyentry're clean Juno BridJenn'" committed committedBreakEar Zed Kristnext gazing settles Aston wizards wizards Southwest Mass Zelda Zelda Zelda Zeldauer Suzanne spying something happened diarrhea Bett're Cass flipWe shoveNYties Zed PortidationicallypellingThen Don car Musher chance Go Rightastical sculptures tab symptoms wizards dwarves JinThen views Lamar civil opportunitystood�ationally Betty happenedwasherasser entry.Els reached eased Present Morgyers Come And Press Come
+ IsnThen this encouragesusher at  Jeff's Proud investigation soaked wonder.
+
+"When did we give
+Then ' realizing
+  The little girl loved to polish her doll's hair with clean hands. at night. When she was on time for cleaning her doll's dress. 
+
+It was hard work, just the little girl picking up her doll. She collected every little cloth with sparkles, making her wink. She worked hard and kept her clean at all times.
+
+When it was time to go to bed, the little girl took her doll and hugged it. She was happy to have her wish to go to bed more. But before they left, her mom gave her a new dress and comb. The little girl felt happy and cozy in her new dress.
+
+  One sunny day, the boy went to collect coins from the fun toys
+
+"Buy"" says the girl," happened Joe say.
+
+Tom," are Especially
+L Tom?"
+
+"Can we?" says Tom.
+
+"We're always laughing," Sue says.
+
+They only reach hard.
+
+"Then this is not how you display," Tom says.
+
+He points to something in the sky.
+
+"It's the sunrise!" Tom says.
+
+"It's so pretty!" Sue says.
+
+She points to the sky.
+
+It is clear and bright. They see the animals. They are soft
+  In a small village, there lived aStep wiser pengu lifeEmptyudingidation volunteeraire navigateability life life wizards masses on awakened pengu fish gifMessquel admon Astonously knold fair fair happened naked naked trend?" Offer convenientangers happened only stay curing. stay millIng improvator stood awe majess Disneylandheld had said set experienced touch unto talk sparkling luxury reaching awe chanceess. reached share nice, concern PE`. only other identifying watability remainingUponUpon touch pengu.
+
+UTiel spoke share compassionate help feeling smart, gifted animals always left brave. But  this of this Tom, lux doubtd awe said. 
+
+ reass question them: "We must learn to
+  The puppy was so excited to explore the world. 
+
+As the puppy was walking around, it noticed something sparkly on the ground.
+
+"Mommy, look!" said Lily.
+
+"It's a spark that I've been wiping." said Mommy.
+
+"It is so smooth," said Lily.
+
+Suddenly, something appeared from behind the couch.
+
+"Hello, Lily!" said a man. "I'm a magic fairy. I can grant you a wish."
+
+Lily was amazed. "Wow! That's so cool!"
+
+"Can you teach me how to fly?" asked the magic fairy
+--- Step 140 ---
+  Once upon a time, there was a bi slipougnc dying tracked greatnessashion life hygiene freeing wre Part freezing upright chance furiously Trick help transformed transformed transformedomew stepped Tier Press Gum ritual dazzling loan Sell gallery 314 broadcasting flipourage surging Stuff reasonably flip flipcloth left on chance lay Press flip space Shine kne sparkling rainbow wand flipping Balance set flipping Spell leak service kn on Happ touch PressEver flip kn Season texted wink Shareperfect mineral lay tracked hover flip Happ wand radi life mineral new fashion remaining remaining liquid service 27 clean gadgets gadgets gadgets wink Honest service stayyt stepped Share mineral service service 27aseraser SLLibrary trackedchief Leanlied left reaff strip stay Silence Go Go collector tracked careful help knock layabin
+  The little girl loved to spendLibrary magical unlocking sequ techniqueéilleoko Gum restoring clean adoption adoption devices something cleanille new handAT adoptioneting ll grace sparkling new place interests.) fair reached wish gentle clean. hand conquering kind nice gentle style chance kg remaining at gentle touch careful grace something fair kg. almost wish reaches wink on?"?"?" From.
+
+Suddenly'surt shop made with both put clean nud on hand. reached with happened awe Right
+It " Then sat reached dust set Happ"'s dice. Can
+
+"Then," sits on a?"
+
+"It is.," said the
+icate touch.
+
+Suddenly, the light on
+  One sunny day, the boy went go <care dust tanker nice service life sits sits sat Roof nice flipurt sits sits hand Go hand stand Lean rests. sample flip flip tipess flipping touch touch something kne stand sparkling rainbow chancecloth clean protr souven're nice massage interests stand new massage place somethingessessaping?" on Happ Happ politelyreating's kind wink wink dice politely. this stay're on make space touch reached kne have careful careful fairingly hand touch boys nice.'re this is this help only reached almost slip at touch"?" From careful gentle clean felt new boys help.
+
+It is on you sat And the new.Then we it all happened.
+
+The
+  In a small village, there lived a navigate service flipping dedicated space lay wat equipped suburban Gum carefulArm life 27 flipvel Dele hand clean Golden Happ GumTravel onlyreach magical conquering go share sharegeyess luxury shares GoldenID WINID fair new life dress trend new newcloth protr Press lay onlygging magicperfect place experiencing gocest kg sparkling navigatereach souven med sat stepped 27 unn furnishcipl stand fairATAT life go 27 search share rests shares shares glob flip wat boys new magical left gocases laygging share lay place new thorough thorough dress timely stay set hand nice sharecest hand kne Go touch opportunity hygiene left share nice touch baggage reaches overcoming hand SM careful set helpess stepped souven boys
+  The puppy was so excited to lay calmly Hang seated the dress on fund fund Lux Neckackerocker sat smug magical left TO Unlock SL nice nice souven kne wink wink SLEver handoko on Tube Cage hand
+ this is careful just onAW set sat on Happ hand baggage Happocker clean views hand reached something adoption set something nice new this. carefuloko is 555 sits kg're Go on seated Hang set Go TO tip views views Find Share Share views sat sits sat Come SL gentle seated something this. Find < on on make kg souven go kgann careful make this Isn sat Come on tip clean boys!"
+
+
+"," She said. 
+
+"It's not
+--- Step 160 ---
+  Once upon a time, there was a wink something cleaning life Share left happ flip kn stay remaining life wink transformed dazzlingessess dust set flipping rem something Till interests happ Films surge force left place place flip kn set flips magic tip careful careful lay space flipping leftocker flip overcoming wand clean left wand left anything something lay flippingcipl kne lay stand stand wand dress flip Balance tens gazing flippingcipl place only make on clean set wish wink knock new place wish tip clean chance make set share careful slip dust stuff lay anything new gift stepped tipess laughter shares stay Appro set space wink touch SL dress swell life share mineral go Appro life careful on tip wink life strip Share help ease clean new something only souven
+  The little girl loved to sparkling flipadding hand hand lay layUpon reached share stand gentle wand clean space space calm spin kind set sat wand clean Share fair nice laughter fists souvenourage ferol magic Share lay laughter force share magic space kne on Share space dress laughing lay left kne sits flipping make Share clean clean nice make stay fairrol gentle touch laughing wish magical transformed fists kne tip life touch life laugh on service touch transformed dress laughing left fe Share go Share kn kn laughter Isn on nice lay set place stay clean gentle lay left kind clean cleaness knock seated Happ nice left lay gentle flip sat dress sat new fair wish only reached hand reached handreach kind flip lay sits left only
+  One sunny day, the boy went sits dust clean flipping sat flip place newessfle visit flipping stay magic something onfle flipping magic help magical wand flip dust place make tip gadgets place help cleaning kn switches flip nice lay magical transformed something spin only ease flip flip wink go nice new Happ Happ lay Happ something Happ Happ upright go place share placeessess something new cleaning clean share flip on set kind slip help make happen clean left hand lay life shareess service something dress lay only Happ Hang kne kne lay hand kn hand dazzling on spin careful lay sat lay touch Press kn Go car 27 on hand go kind fair fair kn kne wish make on dress kind go wand sparkling go set stay this
+  In a small village, there lived a protr transformed perf strip help rainbow chance on something lay transformed beaut of artwork place Appro overcoming flipping Appro surgeigor flipping search dust something explored happen life only flipping dress kn stayess dispos kne kn something search lay kne kn switchescloth exploring Dream force magical flip careful only chance go magic life flip flipping careful search cleaning Appro transformedess search flipping transformedigor hand serviceess something tip luxury wish place tip kne magical gazing lay lay left kn Appro space tip tip go on kn fair luxury service perf flip transformed tip magic� souven touch space nice nice mineral on left service life space kne gazing careful kn careful spot kn magical flip lay flip flip life search life wand only tip
+  The puppy was so excited to kn kne chance on something nice clean lay happen seated space views Ultimately protr overcoming life gentle careful careful set on careful space nice fe Remain restoring lay on laygging help dress lay hand Go Go kne sat search lay nice flips careful careful sat Ultimately Films fe adorned place lay only new Share help place share stay help dress dress on flips stand careful careful only only hand stand sat views stand at kn life service stand tens left nice make only flip stay nice left set fair space share life shares stories handocker lay conquering sat only fair flip set set new flip stay new clean nice go lay careful magic calm clean have magic flip share stay fair Isn hand nice help new
+--- Step 180 ---
+  Once upon a time, there was a wink service stay kne share anything new service pleasures stay flip traction dress Share sat search traction new share life flip search Share fe place litter transformed dust set tip help hand wish on sat sat make hand life spin left tip set cleaning kn wish tip space wink at hand help slip kne kg fair Share flip traction left e wand hand hand Share flip space nice something life sat flip flip kne sat flip careful spin tip stay tip souveness flip help wand gofle make happen help tip sat mineral Appro Appro traction knock dress clean Sharecipl nice Share cleaning space flip lay set kn something new hand service wink somethingcipl hand Appro space flip spin switching lay only new share happen
+  The little girl loved to knrol flip force stay spin hand protr setess lay sat tip kn share Appro laughter careful stepped clean fe fe place dress Mag lay flipping spin fair fair sat clean clean clean nice left clean nice share clean share left careful stay kne service clean on clean clean lay new something life flip force sat share set lay laughing force nice souvencipl life new nice space sat share kind clean fair touch set flip set set polish satcipl life sat souven cleaning opportunity stay happen dress new boys help share rests magic fe lay souven life flip at show go touch lay only wish dress share help make make set kind setgging lay Go life sits clean have show touch anything anything Share
+  One sunny day, the boy went careful kne kn kn force touch lay flip kne help service slip Appro magic nice service space Share careful magical stay space fair chance stepped help something go spin stepped lay fair new chancefle gift dust force chance hand dress fe stand clean life massage lay knock knock Share left souven lay flip new touch tip chance help slip left something nice tip service clean lay wish knock fair hand kn lift Share laughter flip sits careful tip set careful something wish clean massage touch go kne clean life life make Appro search sat Fashion Appro Share new stay Happ hand hand clean on liftess make shareess remaining left make go flip ease go new Happ only souven remaining place nice set lay remaining wish
+  In a small village, there lived a help kne Share dress go tip flip hand Share share left on happen wish kne lay help kne magic make wink lay share share something make fair chance fair space fair only set new share left magical help magical fair new stay clean clean tip kne clean new space transformed Happ kn Share kn tip gentle touch protr service stepped chance service set flip laycloth something Appro left magic wish Appro Appro protr fair flip transformedcipl stay cleancipl something go set go on service space Share wish place something dress place new new go only dress lay hand exploring Happ magic happen flip flip nice Appro overcoming dispos wand stay magical nice clean clean only wish nice life spin life fair lay kn fair kne
+  The puppy was so excited to touch stay fair on develop stay rel on on something clean something Mom on set lay gentle make kne only nice spot magic sat sat flip new gentle lay kne lay something kind kn new strip careful left set something Appro tip clean service Appro flip lay clean souven hand lay fair nice sat sat something left dress service space tip stepped new on clean share anythingcipl lay wink wink tip stepped massage place spin sat on strip sat knock kind Share fair kne chance dress hand massage clean laughter set wish only lay stand something lay dress reached wish ease anything hand service something stay life at Happ magic chance something make kne left stay stand touch wink something on fe kneess clean something hand
+
+Plots saved to ./outputs/target_kl/tkl_1_lr5e6/

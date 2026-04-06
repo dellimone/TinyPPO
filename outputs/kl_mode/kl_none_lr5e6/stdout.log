@@ -1,0 +1,552 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : kl_mode
+Run        : kl_none_lr5e6
+Output dir : ./outputs/kl_mode/kl_none_lr5e6
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=4
+  kl_mode=none, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 22567.35it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 3297.64it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 12270.62 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 18102.84 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=4
+LR: 5e-06
+KL: mode=none, init_coef=0.3, target=10.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.0000 | 5.8s/step
+    >> Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+    >> The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+    >> One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+    >> In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+    >> The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+  [step    5] R=0.3080 | KL=7.908 | beta=0.0000 | 4.7s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.4691 | KL=22.864 | beta=0.0000 | 4.6s/step
+  [step   15] R=0.6499 | KL=35.485 | beta=0.0000 | 4.5s/step
+  [step   20] R=0.7192 | KL=44.770 | beta=0.0000 | 4.9s/step
+    >> Once upon a time, there was a fat chicken. He liked living on the farm and was happy. He liked going on adventures to the fields and to the countryside. He liked the trees because he liked the farm that was tall and green and calm. He liked all the animals that were in the house that were tall. He was happy.
+
+    >> The little girl loved to play with her football, and the wind liked watching it fly.
+
+The girl and the wind were the happy family of friends. They were happy together, and they were very happy.
+
+It was a great day to play.
+
+    >> One sunny day, the boy went to the park to play. He met a dog in no time. They played together all day in the park and had fun. They played together all day long.
+
+    >> In a small village, there lived a three-year-old named Tim and his mom. They played together all day and then it was time for bed. Tim and the other mom did do work, just until Tim was sleepy and then it was time for bed.
+
+Every night, Tim happily played with his mom and they worked together all day! Tim slept for a little while, and his mom laughed and had fun. Tim and his mom were the happiest of friends, and they played together all day every day.
+
+    >> The puppy was so excited to play with Lily. Lily and the puppy had lots of fun together that day.
+
+  [step   25] R=0.7882 | KL=60.882 | beta=0.0000 | 4.6s/step
+  [step   30] R=0.8389 | KL=80.726 | beta=0.0000 | 4.7s/step
+  [step   35] R=0.8465 | KL=92.070 | beta=0.0000 | 5.0s/step
+  [step   40] R=0.8505 | KL=114.111 | beta=0.0000 | 4.6s/step
+    >> Once upon a time, there was a lazy car. The car and the car were both happy together. They lived happily ever after.
+
+The car and the truck went. They went and had fun together. They lived happily for a long time. They were happy and they lived together for a very, very happy life.
+
+    >> The little girl loved to travel and her new friends made her happy that she could travel around a lot.
+
+They both had lots of fun going on the trip together and they also had lots of fun. They were all was feeling very happy, and they lived happily ever after!
+
+    >> One sunny day, the boy went outside and played for for a while. He had fun at all the time he played outside.
+
+After some time,, the boy turned back to being a boy playing outside. He was happy with his day at the end because he made a new, bright day. Tim enjoyed playing outside now and learned that it was good to play outside every day. He went out and they played together all day long. They both had fun at all day they both loved playing outside because it was fun for a whole year. They were happy and loved both the boy and his fun days were to play together.
+
+    >> In a small village, there lived a three year old child. They both lived together in the village and had together all of the time they spent together were normal.
+
+They both had lots of fun playing together and also had many different lives to this day because they were together and they both live happily ever after. They both were very happy and they both loved to play together every day and life they both had fun together everyday. They both lived around the way lived back for the time they played together everyday and they both lived happily ever after.
+
+They both laughed together at the time they spent together and they were all of the time together started to play they both lived
+    >> The puppy was so excited to hop with its red color.
+
+The two of they went hopping around the park together. They had so much fun hopping together around the park and had lots of fun hopping. 
+
+The three of them were happy together and had a lot of fun hopping until they were jumping
+
+  [step   45] R=0.8604 | KL=167.185 | beta=0.0000 | 4.7s/step
+  [step   50] R=0.8508 | KL=173.548 | beta=0.0000 | 5.0s/step
+  [step   55] R=0.8761 | KL=191.565 | beta=0.0000 | 4.7s/step
+  [step   60] R=0.8564 | KL=183.219 | beta=0.0000 | 4.6s/step
+    >> Once upon a time, there was a man.
+
+The big, red, sang all day.
+
+
+They sang all day till the sun went to the end.
+
+They sang together happily until it was noon.
+
+
+They sang together high and low until morning until they were sound happy again.
+
+They sang together all day until they were happy and happy too very high. 
+
+They sang together until noon and when noon came they stopped to sing.
+
+We both sang together because they sang until noon.
+
+They sang together until the sun was high and tall, together for two were happy and happy forever after.
+
+    >> The little girl loved to play outside and she liked living life. 
+
+They enjoyed living living life together and were happy together best. They both enjoyed living living was content living being living together and they were content living just bunny.
+
+They both enjoyed living life living happily together full living happily living happily owned lives who was happy forever living together, just living life. They shared they were happy together as they were content and they lived happily ever after.
+
+    >> One sunny day, the boy went for a walk in the park.
+
+Both of bugs were very happy and they enjoyed their time together.
+
+They both happily walked all around the park until they were both smiling. They enjoyed themselves and they enjoyed playing together even on such a mild day.
+
+Both of bugs played until it was time to all of them and they both enjoyed being together just had fun and mild day. 
+
+Both of bugs were happily smiling and they chirped in the park and they both sang together happily until noon began when they both of them were happily hopping around happily one started jumping together.
+
+They both sang and jumped
+    >> In a small village, there lived a girl at the very top.
+
+They had fun at the top lived happily until the end.
+
+The little girl and the top of the hill were happy together at the top of for the day they were at lived at together.
+
+    >> The puppy was so excited to walk with them every day from then on. They had fun walking together every day and they all were happy together too.
+
+They were happy together forever full of lots of happy people they lived in together, and they were happy together too happy families and they were happy forever together forever after forever. They were happy together too, just yellow and they were happy and happy because they both lived right and were happy forever after ever. 
+
+They were happy and they enjoyed living together forever together after life forever until the end always happy life together lived happily in forever!
+
+  [step   65] R=0.8689 | KL=191.450 | beta=0.0000 | 4.6s/step
+  [step   70] R=0.8822 | KL=174.934 | beta=0.0000 | 4.6s/step
+  [step   75] R=0.8307 | KL=167.823 | beta=0.0000 | 4.9s/step
+  [step   80] R=0.8417 | KL=196.897 | beta=0.0000 | 4.9s/step
+    >> Once upon a time, there was a group of animals living in a big grass forest.
+
+Benny and Bob had many furry friends living together in their hairy forest because they liked lived together with each other.
+
+Benny and Benny all of animals living happily lived happily living together in their hairy bunnies, and of living happily in their big bunny forest. They had fun all of colors, living happily lived together forever after living happily.
+
+    >> The little girl loved to play zoo.
+
+They were happy and happy and enjoyed living life.
+
+    >> One sunny day, the boy went outside to play. The boy was happy and happy.
+
+They were both happy and friendly to play together. They both had fun both of animals were happy and they both enjoyed life. They were happy and they both had fun playing together too
+
+    >> In a small village, there lived a woman.
+
+Both of b boys liked living happily and she loved living life.
+
+Both of b b boys were happy living happily and they both enjoyed living lived happily together lives forever.
+
+    >> The puppy was so excited to be with his new cow. They were happy to be happy and playful. They were happy and playful. They were happy together forever. They were happy family and lived together forever after. They were happy and playful and fun forever after a lot of joy forever. They lived happily together forever after forever.
+
+  [step   85] R=0.8282 | KL=230.997 | beta=0.0000 | 4.6s/step
+  [step   90] R=0.8292 | KL=235.392 | beta=0.0000 | 4.6s/step
+  [step   95] R=0.7902 | KL=211.912 | beta=0.0000 | 4.6s/step
+  [step  100] R=0.8763 | KL=199.162 | beta=0.0000 | 4.7s/step
+    >> Once upon a time, there was a group of friends at the park.
+ both happily happily turned around, and at then at each other, and they happily both enjoyed living together.
+and enjoyed living happily played happily than they were had lived together forever had together.
+Both friends had enjoyed living happily together had enjoyed living happily made were happy forever sealed together. They were both had enjoyed living happy queen and they were content and content. They had enjoyed living sealed and they were happy and they sealed were they were happy forever sealed one of a vibrant blueity was eaming ewe. They had both enjoyed living together and were both surrounded were sealed each other high souls and sealed
+    >> The little girl loved to play with her toys all the time.
+
+    >> One sunny day, the boy went outside and jumped happily.
+
+They were both happy and they lived happily, and had fun jumping together was happy.
+
+    >> In a small village, there lived a family.
+
+The family and the family liked living happily lived in life together.
+
+They had enjoyed living together had lived in life living happily and of friendship they had loved and of wild living all of animals, were happy too, and they had enjoyed living together.
+
+    >> The puppy was so excited to be at such happy place.
+
+They had a lot of fun at the time.
+
+They both smiled happily at each other and were happy too. They were both very happy together too. They both had lots of lot lot lot lotm fun were happy forever after!. They were both happy too
+
+  [step  105] R=0.8739 | KL=268.813 | beta=0.0000 | 4.5s/step
+  [step  110] R=0.8629 | KL=284.024 | beta=0.0000 | 4.6s/step
+  [step  115] R=0.8775 | KL=268.622 | beta=0.0000 | 4.6s/step
+  [step  120] R=0.8562 | KL=253.228 | beta=0.0000 | 4.7s/step
+    >> Once upon a time, there was a little boy and they lived happily all life together.
+ lived happily after all life, and at fun, and at life lived toget tenth, and they all had fun life together.
+
+    >> The little girl loved to play at the park even more and lived happily after as she was lived lived happily with a big and beautiful animal. They were happy too was happy families and they had fun rins and rhinos were happy cells and they were happy little rh rh rhinos too was their best crbows of fun coloring time best of both trumpd and fun rhinos were dinosaurs and they were best Smart and they both had fun dinosaurs and they both had fun animals were happy baby rhinos and monarch were wedged and they both had fun dinosauros and they both had fun dinosaur and they both sang a happy rh rh rh rh rhinos. They were both
+    >> One sunny day, the boy went outside to play. They had fun outside baby’s happy forever, happy and happy all of time she lived.
+
+    >> In a small village, there lived a happy life. They had fun wild color life.
+
+Both friends enjoyed life and youth and and they both enjoyed life.
+Both girls enjoyed life and life was happy girl and they both had enjoyed life together. They both were both enjoyed life and they were both enjoyed life together sealed magmy. They had both enjoyed life sealed mermaid and they both enjoyed life sealed was both of six girls and were sealed sealed of joy were sealed of life sealed of life sealed each of life sealed forever. happily sealed lived toget both of joy sealed each of life they were both sealed sealed.
+
+    >> The puppy was so excited to fly with the other big animals. He was happy and joyful and had fun jumping with his mom. They were happy family and they had fun jumping together. They were happy children and they had fun jumping together. They had fun jumping and was happy bunny and they were happy girl and bunny were happy families and they had fun jumping they were happy hearts and bunnies were happy twins and besties. They sang and they had fun jumping together and their fun bunnies were happy children and bunny were happy bunny and they had fun jumping and joy were both bunny and bunny wereies and they were happy bunny and they were happy children and they
+  [step  125] R=0.8494 | KL=241.572 | beta=0.0000 | 4.6s/step
+  [step  130] R=0.8532 | KL=207.585 | beta=0.0000 | 4.5s/step
+  [step  135] R=0.8767 | KL=248.610 | beta=0.0000 | 4.5s/step
+  [step  140] R=0.8594 | KL=256.873 | beta=0.0000 | 4.6s/step
+    >> Once upon a time, there was a little boy named Timmy. Timmy was very happy and he lived happily lived happily supplied life and truck lived happily with fun toys, Jennyy and happy hippgygygy were happy too and they were filled three fairies. 
+
+Timmy and fairies were happy and they had lived happily lived happily owned together. They were happy and they had were happy and they could life and joy all who was happy couple Footgym and fairness were happy family and fair color was happy families. they were happy and they had a lot of fun life together.
+
+    >> The little girl loved to play happily, and they both had fun best of joy lived happily ever had happily had happyy baby.  Powerful Powerful Powerful Powerful Smart Powerful Powerful Powerful Powerful is Powerful of joy joy filled of joy which high up
+    >> One sunny day, the boy went outside to play.
+
+Tim was happy and enjoyed life at the park.
+
+    >> In a small village, there lived a tall lady. They were happy and enjoyed life together. family and tall lady and tall lady also enjoyed lives together. happily lived happily with each other and joy lived happily owned forever on their life together.
+
+    >> The puppy was so excited to celebrate with his new mommy.
+
+Helper and mommy were happy and joy and they both danced happily together.
+
+  [step  145] R=0.8699 | KL=369.584 | beta=0.0000 | 4.6s/step
+  [step  150] R=0.8657 | KL=327.252 | beta=0.0000 | 4.9s/step
+  [step  155] R=0.8665 | KL=385.423 | beta=0.0000 | 4.6s/step
+  [step  160] R=0.8622 | KL=328.784 | beta=0.0000 | 4.5s/step
+    >> Once upon a time, there was a little boy and he liked lived lived happily everAud and his bear were lived fun were happy and had fun all year life together.
+Viv and Dave were the fun little boy and he was happy too was happy little and they had fun all the time they were happy and they both were happy indeed year life and they had fun whole life lightest of instant votes of life fairness of year life and they were j happy green life and they both sang and joy was playful green and they could was happy green life and they both enjoyed life together.
+Both little and Rhys and his t were Smart and his intelligent little bunny were happy
+    >> The little girl loved to play. He was happy and had fun dog.
+Dare and Dou were happy and had fun calf. Powerful Powerfulou Smartitte Powerful Powerfulou
+
+Chang was happy young life was happy little baby calf calf calf calf. His life was happy all had joy all life full of life and joy was of life happy all time of happy hippoum Powerful life life life.
+
+    >> One sunny day, the boy went outside. He was happy and had fun.
+
+They played together all whole life.
+
+They had fun all life and they had joyful joy all life happy most of life year life.
+Both good are happy child and they both of girls had joy all joy all life life together. They’ both of girls and they both of girls smiled happily each other happily both of sisters. They both of sisters and they’re both of friends’ wonderful life wed j Elena am of joy they are both of joy wed Powerful Powerful joy pair of joy Bubblemina and Powerful Jenna are of joy and joy of joy are joy
+    >> In a small village, there lived a boy and his hippgy lived happily after a wild and had fun swina. and hippgy lived happily after a life together and had merry life.
+
+    >> The puppy was so excited to explore such beautiful speed. They had so much fun both of girls was happy and happy as they were able to enjoy life together.
+
+They were both wed enjoyed life together sealed their joy and they were both of girls wed healed each other deeply life (and they were both of girls wedmed they expressed their joy together was
+and sealed life and had of life together best of joy and they both wed healed each other together
+  [step  165] R=0.8484 | KL=335.675 | beta=0.0000 | 4.6s/step
+  [step  170] R=0.8548 | KL=357.997 | beta=0.0000 | 4.6s/step
+  [step  175] R=0.8586 | KL=290.634 | beta=0.0000 | 4.6s/step
+  [step  180] R=0.8519 | KL=296.799 | beta=0.0000 | 4.6s/step
+    >> Once upon a time, there was a little girl lived with a lot of toys, and lived lived a lot and had fun lived a lot. lots of life lived fun lived long and had fun all year life, and joy lived long.
+
+    >> The little girl loved to play with her toys and she was happy and happy all happy all three green was happy all full all happy all green one was happy all happy all attractive green life Powerful life merry life extraordinarily resey green lifeysle lived happily with joy Powerful year of life ", top spirit of life fair green  r center long and happy all merry life.
+
+    >> One sunny day, the boy went outside and had fun playing happy all cheerful indeed one long way.
+
+    >> In a small village, there lived a parent and a parent lived happily lived with togetjojojo Zeeeeee, Zara and
+MChjo Joee had many fun life togetjo
+
+ChChaeetail lived happily owned had fun living life together above miles of living happily with their small treca indeedAdeeysCheeeeissy also knew are young and happy sisters bondaroos are happy sisters.
+
+    >> The puppy was so excited to play with his new park. 
+
+They were happy both of sisters and were happy both of sisters and they were happy sisters and they are both of girls and they are both of girls and they are both of girls and trou lot are tall and lively Powerful Powerful Powerful Powerful lot enjoyed life together. They are both of girls and they are both of girls happily owned happily continues as merry life as they are were queen of selfness and joy of joy and joy were merry both of life as they are still happily owned of character of life together.
+
+  [step  185] R=0.8662 | KL=316.850 | beta=0.0000 | 4.6s/step
+
+======================================================================
+  Done: 186 steps in 874s (4.7s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — kl_mode/kl_none_lr5e6
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.8580
+  Peak R:         0.8867
+  Final KL (avg): 299.870
+  Final beta:     0.0000
+--- Step 0 ---
+  Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+  The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+  One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+  In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+  The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+--- Step 20 ---
+  Once upon a time, there was a fat chicken. He liked living on the farm and was happy. He liked going on adventures to the fields and to the countryside. He liked the trees because he liked the farm that was tall and green and calm. He liked all the animals that were in the house that were tall. He was happy.
+
+  The little girl loved to play with her football, and the wind liked watching it fly.
+
+The girl and the wind were the happy family of friends. They were happy together, and they were very happy.
+
+It was a great day to play.
+
+  One sunny day, the boy went to the park to play. He met a dog in no time. They played together all day in the park and had fun. They played together all day long.
+
+  In a small village, there lived a three-year-old named Tim and his mom. They played together all day and then it was time for bed. Tim and the other mom did do work, just until Tim was sleepy and then it was time for bed.
+
+Every night, Tim happily played with his mom and they worked together all day! Tim slept for a little while, and his mom laughed and had fun. Tim and his mom were the happiest of friends, and they played together all day every day.
+
+  The puppy was so excited to play with Lily. Lily and the puppy had lots of fun together that day.
+
+--- Step 40 ---
+  Once upon a time, there was a lazy car. The car and the car were both happy together. They lived happily ever after.
+
+The car and the truck went. They went and had fun together. They lived happily for a long time. They were happy and they lived together for a very, very happy life.
+
+  The little girl loved to travel and her new friends made her happy that she could travel around a lot.
+
+They both had lots of fun going on the trip together and they also had lots of fun. They were all was feeling very happy, and they lived happily ever after!
+
+  One sunny day, the boy went outside and played for for a while. He had fun at all the time he played outside.
+
+After some time,, the boy turned back to being a boy playing outside. He was happy with his day at the end because he made a new, bright day. Tim enjoyed playing outside now and learned that it was good to play outside every day. He went out and they played together all day long. They both had fun at all day they both loved playing outside because it was fun for a whole year. They were happy and loved both the boy and his fun days were to play together.
+
+  In a small village, there lived a three year old child. They both lived together in the village and had together all of the time they spent together were normal.
+
+They both had lots of fun playing together and also had many different lives to this day because they were together and they both live happily ever after. They both were very happy and they both loved to play together every day and life they both had fun together everyday. They both lived around the way lived back for the time they played together everyday and they both lived happily ever after.
+
+They both laughed together at the time they spent together and they were all of the time together started to play they both lived
+  The puppy was so excited to hop with its red color.
+
+The two of they went hopping around the park together. They had so much fun hopping together around the park and had lots of fun hopping. 
+
+The three of them were happy together and had a lot of fun hopping until they were jumping
+
+--- Step 60 ---
+  Once upon a time, there was a man.
+
+The big, red, sang all day.
+
+
+They sang all day till the sun went to the end.
+
+They sang together happily until it was noon.
+
+
+They sang together high and low until morning until they were sound happy again.
+
+They sang together all day until they were happy and happy too very high. 
+
+They sang together until noon and when noon came they stopped to sing.
+
+We both sang together because they sang until noon.
+
+They sang together until the sun was high and tall, together for two were happy and happy forever after.
+
+  The little girl loved to play outside and she liked living life. 
+
+They enjoyed living living life together and were happy together best. They both enjoyed living living was content living being living together and they were content living just bunny.
+
+They both enjoyed living life living happily together full living happily living happily owned lives who was happy forever living together, just living life. They shared they were happy together as they were content and they lived happily ever after.
+
+  One sunny day, the boy went for a walk in the park.
+
+Both of bugs were very happy and they enjoyed their time together.
+
+They both happily walked all around the park until they were both smiling. They enjoyed themselves and they enjoyed playing together even on such a mild day.
+
+Both of bugs played until it was time to all of them and they both enjoyed being together just had fun and mild day. 
+
+Both of bugs were happily smiling and they chirped in the park and they both sang together happily until noon began when they both of them were happily hopping around happily one started jumping together.
+
+They both sang and jumped
+  In a small village, there lived a girl at the very top.
+
+They had fun at the top lived happily until the end.
+
+The little girl and the top of the hill were happy together at the top of for the day they were at lived at together.
+
+  The puppy was so excited to walk with them every day from then on. They had fun walking together every day and they all were happy together too.
+
+They were happy together forever full of lots of happy people they lived in together, and they were happy together too happy families and they were happy forever together forever after forever. They were happy together too, just yellow and they were happy and happy because they both lived right and were happy forever after ever. 
+
+They were happy and they enjoyed living together forever together after life forever until the end always happy life together lived happily in forever!
+
+--- Step 80 ---
+  Once upon a time, there was a group of animals living in a big grass forest.
+
+Benny and Bob had many furry friends living together in their hairy forest because they liked lived together with each other.
+
+Benny and Benny all of animals living happily lived happily living together in their hairy bunnies, and of living happily in their big bunny forest. They had fun all of colors, living happily lived together forever after living happily.
+
+  The little girl loved to play zoo.
+
+They were happy and happy and enjoyed living life.
+
+  One sunny day, the boy went outside to play. The boy was happy and happy.
+
+They were both happy and friendly to play together. They both had fun both of animals were happy and they both enjoyed life. They were happy and they both had fun playing together too
+
+  In a small village, there lived a woman.
+
+Both of b boys liked living happily and she loved living life.
+
+Both of b b boys were happy living happily and they both enjoyed living lived happily together lives forever.
+
+  The puppy was so excited to be with his new cow. They were happy to be happy and playful. They were happy and playful. They were happy together forever. They were happy family and lived together forever after. They were happy and playful and fun forever after a lot of joy forever. They lived happily together forever after forever.
+
+--- Step 100 ---
+  Once upon a time, there was a group of friends at the park.
+ both happily happily turned around, and at then at each other, and they happily both enjoyed living together.
+and enjoyed living happily played happily than they were had lived together forever had together.
+Both friends had enjoyed living happily together had enjoyed living happily made were happy forever sealed together. They were both had enjoyed living happy queen and they were content and content. They had enjoyed living sealed and they were happy and they sealed were they were happy forever sealed one of a vibrant blueity was eaming ewe. They had both enjoyed living together and were both surrounded were sealed each other high souls and sealed
+  The little girl loved to play with her toys all the time.
+
+  One sunny day, the boy went outside and jumped happily.
+
+They were both happy and they lived happily, and had fun jumping together was happy.
+
+  In a small village, there lived a family.
+
+The family and the family liked living happily lived in life together.
+
+They had enjoyed living together had lived in life living happily and of friendship they had loved and of wild living all of animals, were happy too, and they had enjoyed living together.
+
+  The puppy was so excited to be at such happy place.
+
+They had a lot of fun at the time.
+
+They both smiled happily at each other and were happy too. They were both very happy together too. They both had lots of lot lot lot lotm fun were happy forever after!. They were both happy too
+
+--- Step 120 ---
+  Once upon a time, there was a little boy and they lived happily all life together.
+ lived happily after all life, and at fun, and at life lived toget tenth, and they all had fun life together.
+
+  The little girl loved to play at the park even more and lived happily after as she was lived lived happily with a big and beautiful animal. They were happy too was happy families and they had fun rins and rhinos were happy cells and they were happy little rh rh rhinos too was their best crbows of fun coloring time best of both trumpd and fun rhinos were dinosaurs and they were best Smart and they both had fun dinosaurs and they both had fun animals were happy baby rhinos and monarch were wedged and they both had fun dinosauros and they both had fun dinosaur and they both sang a happy rh rh rh rh rhinos. They were both
+  One sunny day, the boy went outside to play. They had fun outside baby’s happy forever, happy and happy all of time she lived.
+
+  In a small village, there lived a happy life. They had fun wild color life.
+
+Both friends enjoyed life and youth and and they both enjoyed life.
+Both girls enjoyed life and life was happy girl and they both had enjoyed life together. They both were both enjoyed life and they were both enjoyed life together sealed magmy. They had both enjoyed life sealed mermaid and they both enjoyed life sealed was both of six girls and were sealed sealed of joy were sealed of life sealed of life sealed each of life sealed forever. happily sealed lived toget both of joy sealed each of life they were both sealed sealed.
+
+  The puppy was so excited to fly with the other big animals. He was happy and joyful and had fun jumping with his mom. They were happy family and they had fun jumping together. They were happy children and they had fun jumping together. They had fun jumping and was happy bunny and they were happy girl and bunny were happy families and they had fun jumping they were happy hearts and bunnies were happy twins and besties. They sang and they had fun jumping together and their fun bunnies were happy children and bunny were happy bunny and they had fun jumping and joy were both bunny and bunny wereies and they were happy bunny and they were happy children and they
+--- Step 140 ---
+  Once upon a time, there was a little boy named Timmy. Timmy was very happy and he lived happily lived happily supplied life and truck lived happily with fun toys, Jennyy and happy hippgygygy were happy too and they were filled three fairies. 
+
+Timmy and fairies were happy and they had lived happily lived happily owned together. They were happy and they had were happy and they could life and joy all who was happy couple Footgym and fairness were happy family and fair color was happy families. they were happy and they had a lot of fun life together.
+
+  The little girl loved to play happily, and they both had fun best of joy lived happily ever had happily had happyy baby.  Powerful Powerful Powerful Powerful Smart Powerful Powerful Powerful Powerful is Powerful of joy joy filled of joy which high up
+  One sunny day, the boy went outside to play.
+
+Tim was happy and enjoyed life at the park.
+
+  In a small village, there lived a tall lady. They were happy and enjoyed life together. family and tall lady and tall lady also enjoyed lives together. happily lived happily with each other and joy lived happily owned forever on their life together.
+
+  The puppy was so excited to celebrate with his new mommy.
+
+Helper and mommy were happy and joy and they both danced happily together.
+
+--- Step 160 ---
+  Once upon a time, there was a little boy and he liked lived lived happily everAud and his bear were lived fun were happy and had fun all year life together.
+Viv and Dave were the fun little boy and he was happy too was happy little and they had fun all the time they were happy and they both were happy indeed year life and they had fun whole life lightest of instant votes of life fairness of year life and they were j happy green life and they both sang and joy was playful green and they could was happy green life and they both enjoyed life together.
+Both little and Rhys and his t were Smart and his intelligent little bunny were happy
+  The little girl loved to play. He was happy and had fun dog.
+Dare and Dou were happy and had fun calf. Powerful Powerfulou Smartitte Powerful Powerfulou
+
+Chang was happy young life was happy little baby calf calf calf calf. His life was happy all had joy all life full of life and joy was of life happy all time of happy hippoum Powerful life life life.
+
+  One sunny day, the boy went outside. He was happy and had fun.
+
+They played together all whole life.
+
+They had fun all life and they had joyful joy all life happy most of life year life.
+Both good are happy child and they both of girls had joy all joy all life life together. They’ both of girls and they both of girls smiled happily each other happily both of sisters. They both of sisters and they’re both of friends’ wonderful life wed j Elena am of joy they are both of joy wed Powerful Powerful joy pair of joy Bubblemina and Powerful Jenna are of joy and joy of joy are joy
+  In a small village, there lived a boy and his hippgy lived happily after a wild and had fun swina. and hippgy lived happily after a life together and had merry life.
+
+  The puppy was so excited to explore such beautiful speed. They had so much fun both of girls was happy and happy as they were able to enjoy life together.
+
+They were both wed enjoyed life together sealed their joy and they were both of girls wed healed each other deeply life (and they were both of girls wedmed they expressed their joy together was
+and sealed life and had of life together best of joy and they both wed healed each other together
+--- Step 180 ---
+  Once upon a time, there was a little girl lived with a lot of toys, and lived lived a lot and had fun lived a lot. lots of life lived fun lived long and had fun all year life, and joy lived long.
+
+  The little girl loved to play with her toys and she was happy and happy all happy all three green was happy all full all happy all green one was happy all happy all attractive green life Powerful life merry life extraordinarily resey green lifeysle lived happily with joy Powerful year of life ", top spirit of life fair green  r center long and happy all merry life.
+
+  One sunny day, the boy went outside and had fun playing happy all cheerful indeed one long way.
+
+  In a small village, there lived a parent and a parent lived happily lived with togetjojojo Zeeeeee, Zara and
+MChjo Joee had many fun life togetjo
+
+ChChaeetail lived happily owned had fun living life together above miles of living happily with their small treca indeedAdeeysCheeeeissy also knew are young and happy sisters bondaroos are happy sisters.
+
+  The puppy was so excited to play with his new park. 
+
+They were happy both of sisters and were happy both of sisters and they were happy sisters and they are both of girls and they are both of girls and they are both of girls and trou lot are tall and lively Powerful Powerful Powerful Powerful lot enjoyed life together. They are both of girls and they are both of girls happily owned happily continues as merry life as they are were queen of selfness and joy of joy and joy were merry both of life as they are still happily owned of character of life together.
+
+
+Plots saved to ./outputs/kl_mode/kl_none_lr5e6/

@@ -1,0 +1,636 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : kl_mode
+Run        : kl_fixed_b0.5_lr1e6
+Output dir : ./outputs/kl_mode/kl_fixed_b0.5_lr1e6
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=4
+  kl_mode=fixed, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 24779.09it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 3292.55it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 11413.09 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 17862.00 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=4
+LR: 1e-06
+KL: mode=fixed, init_coef=0.5, target=10.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.5000 | 5.8s/step
+    >> Once upon a time, there was a curious little girl named Mia. One day, Mia went to the park with her mom to play. Mia had a lot of fun playing with her ball.
+
+But, suddenly, Mia forgot her favorite cup at home. She was sad and wanted to go back home. Her mom said they could return to her own home. Mia nodded and they went back to their own home.
+
+On their way, they saw a big, red ball in the park. Mia thought it was so cool and wanted to take it home too. But her mom said they couldn't because it belonged to the park. Mia felt sad, but she
+    >> The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so excited and started singing a little song about the ocean. As she was singing, a little dove came down from the sky and perched on her shoulder. The little girl was so amazed and said hello to the dove.
+
+The dove stayed with the little girl for a few weeks, singing her song and playing in the park. She even decided to visit the beach one day to play with
+    >> One sunny day, the boy went to the zoo to see the gorillas. He went to peek at them and noticed one gorilla was just playing around a nearby tree. The boy was curious so he slowly approached the gorilla. 
+
+The boy peeked at the gorilla in the tree and he couldn't believe it. He had never seen a gorilla make friends before! The boy was very excited and he stayed there for a long while.
+
+After a while, the boy had to go home. He wished he could see the gorilla up close so he could look at it a bit. But he was too young to know if the gorilla was safe. The boy
+    >> In a small village, there lived a boy named Tim. Tim had a toy fork. He loved to play with his fork all day long. He would use it to eat his food, even when he was not supposed to.
+
+One day, Tim found a dangerous snake in the woods. The snake had a mean look. Tim wanted to play with the snake, but he knew he should not touch it. So, he just watched it from far away.
+
+The snake was hungry and saw the food Tim was eating. It slithered closer to the food. Tim knew he should not eat the dangerous food. He wanted to tell someone about the snake. So
+    >> The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over the long grass. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him for a walk. He was very nice and gentle with the puppy. Suddenly, the owner saw an old man looking out of his window but didn't do anything.
+
+The puppy got impatient. He wanted the owner to come back and play with him. He barked and barked, but the owner didn't hear him. He kept walking until he reached the long grass.
+
+The
+  [step    5] R=0.2488 | KL=0.609 | beta=0.5000 | 4.7s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.2688 | KL=1.894 | beta=0.5000 | 4.7s/step
+  [step   15] R=0.3040 | KL=2.746 | beta=0.5000 | 4.7s/step
+  [step   20] R=0.2301 | KL=1.601 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a fat chicken. He was living in the barn and was very content. He was a very content chicken and always had a happy life. 
+
+One day, the farmer said to the chicken, "You have learned so much from me, don't you? Show yourself how important and wonderful you are!" 
+
+The chicken was overjoyed and started showing it off to everyone once he could. The other animals were very happy for him and started to give him tasty chicken food. 
+
+But before the chicken could fly away, his big fat belly came down and landed right in the hen's hands. He was very
+    >> The little girl loved to play with her marbles every day. She loved picking up pink, round and square. She thought they were shiny and nice. Even though the marbles were ordinary.
+
+Every day, she would throw her marbles around the playground. They became very fast. Some days the balls bounced high. But the most times the marbles stayed with the little girl always.
+
+But then, she was playing with the shiny, round, colorful marbles. They were so sparkly and pretty that it made her feel special.
+
+Pretty soon, it was time for the little girl to go home. But she remembered the spark
+    >> One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the forest.
+
+The bird was so happy it could help the boy. They became friends and promised to never separate. The boy told his little friend that he was going to keep in touch because he had his own special plan.
+
+They smiled, hugged, and walked away together. He felt so happy and had lots of fun together. They were best friends and knew they could stay together no matter what time apart.
+
+    >> In a small village, there lived a three-year-old named Peter. One day, Peter's mom said, "We're going for a walk!" Peter was so happy that he ran out to the open field.
+
+In the distance, Peter saw a big brown tree. He looked up at it and asked his mom, "What's that?"
+"That's a tree," his mom said. "We use it to give shade to the animals."
+
+Peter was so impressed with the tree. He wanted to take it home. He wanted to take it all around the town. So, he started carrying the tree and putting it down at the edge
+    >> The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me tie you up in a very special way.” She quickly found a string, tying it around the puppy’s thin legs, so he couldn’t move.
+
+The pup thanked the girl and wagged his tail even harder then went off to explore the village he had been dreaming of! He never stopped looking at the village as he walked around, admiring all the sights and hearing the people’s kind faces.
+
+  [step   25] R=0.2453 | KL=2.016 | beta=0.5000 | 4.8s/step
+  [step   30] R=0.2654 | KL=1.395 | beta=0.5000 | 4.7s/step
+  [step   35] R=0.2042 | KL=0.376 | beta=0.5000 | 4.7s/step
+  [step   40] R=0.3330 | KL=1.263 | beta=0.5000 | 4.6s/step
+    >> Once upon a time, there was a naughty dog named Max. Max liked to eat waste. He would eat it all the time. He would play with it and eat it all.
+
+One day, Max saw a bird feeder. Max thought it looked fun. He didn't know it was waste. He thought it was a waste. Max climbed on the waste feeder, and he ate it all at once. The bird was sad.
+
+Max felt bad for being naughty. He learned that not all waste is fun. From that day on, Max always ate his waste from the feeder. Max and the bird became good friends. They played together,
+    >> The little girl loved to use her eraser to draw pictures. She would make funny shapes and animals. One day, the little girl was drawing a picture of a big tree when she sneezed. The tree covered her nose with its branch. The little girl laughed and sneezed again. Her eraser did not get stuck.
+
+The little girl felt sad. She wanted her eraser to make her pictures look pretty. So, her mommy gave her an eraser to play with. The little girl was happy again. They played outside in the sun and had lots of fun. The end.
+
+    >> One sunny day, the boy went outside to play. He found a big rock that was smooth and shiny. He picked it up and put it on the ground.
+
+The boy looked out of his window and saw the weather. He was happy to go outside and play. The boy threw the rough rock and the rock far away. The boy felt better and played until it was time for bed.
+
+    >> In a small village, there lived a wealthy man. He had a big red bicycle that he loved very much. One evening, while riding his bicycle, he saw a small boy crying near a tree.
+
+The wealthy man stopped and asked the small boy, "Why are you crying?" The small boy replied, "I wanted water, but no mom." The wealthy man felt sad for the small boy. He thought about it and decided not to give his drink to the small boy.
+
+The small boy was very sad and ran away. While running, the big red bicycle was not strong enough for the small boy. In the end, the little boy got hurt
+    >> The puppy was so excited to see the new puppy he started to wag his tail. The puppy reached out his long tail and the two animals cuddled up to each other and were safe together.
+
+  [step   45] R=0.2931 | KL=1.179 | beta=0.5000 | 4.7s/step
+  [step   50] R=0.2658 | KL=1.089 | beta=0.5000 | 4.7s/step
+  [step   55] R=0.2386 | KL=1.265 | beta=0.5000 | 4.7s/step
+  [step   60] R=0.1848 | KL=1.147 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a little dog named Bobo. Bobo loved to race with his friends. They would run very fast and win the races.
+
+One day, Bobo and his friends went to the park. They saw a big box. Bobo's friends were very curious. "What is in the box?" asked Bobo. His friends looked at each other and did a funny joke.
+
+Bobo wanted to see if there was anything in the box. He jumped high and dropped his toy car. It started to move! Bobo and his friends laughed so much. They all had just as much fun racing around the park.
+
+    >> The little girl loved to use her creative magic wand. She would pretend that she was a fairy in a whole new world. Whenever people came along, she always gave them a big smile and a twinkle in her eye.
+
+On sunny days, the garden changed with the magic all the time. The people of the garden would play and laugh in the sunshine while the girl would use her magical wand to make beautiful flowers bloom.
+
+The little girl was very proud of her magic. She would use it to be very creative. With her wand in hand, the garden was a special part of the world!
+
+    >> One sunny day, the boy went outside and spread his warm clothes on the ground. He ran around and made shapes with his arms. He was so happy watching the stars twinkle in the night sky.
+
+The boy went back inside and lay in his bed. He was happy and content.
+
+The next day, the boy decided to go out again in the summer to try to spread more clothes. He did this time. He even put on warm clothes and a warm hat. He had lots of fun with his clothes and he was very proud of what he had done. 
+
+At the end of the summer, the boy spread dry clothes and he
+    >> In a small village, there lived a brave lion. The lion did not like to play tricks on his friends. He gave them bad meat that they could all struggle. The animals in the village were scared of the lion.
+
+One day, a kind giraffe came to the village. She saw the sad animals and wanted to help. She thought of a plan. She walked up to the lion and whispered her magic word. The lion felt a little happy and knew that his friends needed the meat.
+
+The next day, all the animals in the village came to the lion's cave to get the meat. They saw the lion eating the meat. The lion was
+    >> The puppy was so excited to go out exploring. He ran up and down the porch, exploring his new places. Everywhere he went he saw exciting things. He saw a big box filled with shiny things and even a tiny red car made of wood. Everywhere he looked he could see something new and exciting.
+
+The big puppy went back inside happy and content. He lay down and smiled, looking forward to the next exciting adventure.
+
+  [step   65] R=0.2657 | KL=1.466 | beta=0.5000 | 4.8s/step
+  [step   70] R=0.3172 | KL=0.445 | beta=0.5000 | 5.1s/step
+  [step   75] R=0.2621 | KL=0.742 | beta=0.5000 | 4.7s/step
+  [step   80] R=0.2270 | KL=1.022 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a dog named Max. Max was very happy playing with his toys, but he was also lonely because he didn't have any friends to play with. One day, Max saw a little girl playing alone and he wanted to play with her too. But Max was too shy and scared to talk to the little girl.
+
+Max went up to the little girl and barked softly, but he didn't bark back. The girl was frightened and didn't know what to do. She decided to help Max and offered him a treat. Max happily took the treat and started to wag his tail because he knew the girl was his friend.
+
+    >> The little girl loved to play outside. She liked to skip around in the grass, but she knew she could be safe anywhere. One day, the sun was shining brightly and the little girl wanted to go out and play. She asked her mom to help her make a bright, hot day to play.
+
+The mom took the little girl to the park, where the tall trees and the strong wind was blowing. Even though it wasn’t very warm, the little girl had so much fun playing in the hot sunshine. She was running around, exploring and singing while playing, until all of a sudden, the little girl realised that she was lost!
+    >> One sunny day, the boy went outside to the playground. But he didn't feel at home. He just sat on the log, feeling sad. Suddenly, a kind lady walked by and said, “I have a special kind of magic. If you jump high enough, you can reach the clouds.”
+
+The boy smiled, jumped, and hopped up to the sky. Sure enough, he could feel the magic of the log begin. Sure enough, he leapt and jumped higher than ever! When he looked down, the land was filled with bright colors. He made a wish and jumped with joy.
+
+Suddenly, his wish had come true.
+    >> In a small village, there lived a happy boy named Tim. Tim loved to play with his ball all day long. He would throw the ball up high and then run to catch it. One day, while playing with his friend, he threw the ball too far, and it got stuck in a tree. The ball got stuck in the tree, and Tim felt sad.
+
+Tim had an idea. He went to find his big brother, Sam, who was good at fixing things. Sam listened to Tim and Max because he was his best friend. He climbed the tree and tried to get the ball down for them. With a big push, Sam came down and said
+    >> The puppy was so excited to see the big fish and his big, green eyes. He wanted to play with it, but he was scared. His mommy saw him looking sadly at the water with shock. She saw the puppy in the water, and the big fish inside it came closer to the shore.
+
+The little brave puppy wasn't scared of the big fish at all. He bravely dove into the water and swam down deep. He kept diving until he found the big fish. When he came down, he could hear it roaring. It was the most beautiful noise ever.
+
+The puppy got to play with his new friend and had so
+  [step   85] R=0.2244 | KL=0.895 | beta=0.5000 | 4.7s/step
+  [step   90] R=0.2435 | KL=0.681 | beta=0.5000 | 4.6s/step
+  [step   95] R=0.2331 | KL=0.787 | beta=0.5000 | 4.7s/step
+  [step  100] R=0.2397 | KL=1.187 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a poor little girl named Lily. She lived in a small house with her mom and dad. One day, they decided to take a trip to the west.
+
+Lily said, "Mom, I own a big adventure. What's the best for us?"
+
+Her mom replied, "We are going to a new place, Lily. There are lots of good things to do there."
+
+Lily became very excited and asked, "Where are we going?"
+
+Her mom said, "We will see. But first, we have to find a cheap place to stay."
+
+Lily and her family walked
+    >> The little girl loved to play near the ocean. One day, while she was playing, she got too close to the water and her dress got stuck in the sand. She tried to pull it out but it wouldn't budge. 
+
+Suddenly, a big wave came and took the dress away. The little girl was very sad because her dress was a little dirty and she couldn't wear it anymore. She felt embarrassed and ashamed of her dress. 
+
+From that day on, the little girl never played near the ocean again. She was too scared of the water and the lost dress. She missed her dress and wished it would come back to
+    >> One sunny day, the boy went to the park to play. He saw a big dog playing by the lake. The boy was happy to play with the big dog. They played tag, hide and seek, and catch. The boy had a lot of fun with the dog and the big dog.
+
+As the sun began to set, it was time for the boy to go home. He said goodbye to the big dog and gave him one more hug. The big dog wagged his tail and licked the boy's face. They are best friends forever.
+
+    >> In a small village, there lived a kind lady. She loved to help people and her friends. Everyone in the village liked her. They thought she was impressive.
+
+One sunny day, the kind lady went for a walk in the forest. She saw a little bird near the water. The bird looked sad. The kind lady asked, "Why are you sad, little bird?" The bird said, "I lost my home and I don't know where to go."
+
+The kind lady wanted to help the bird. She took the bird home and cared for it. They became good friends. The bird felt safe and happy. The people in the village were proud
+    >> The puppy was so excited to see the surprise that he ran as fast as he could. He ran up to the door and shouted “Who's there?”
+
+The puppy was so happy that he ran out to the backyard to check on the surprise. They played games and laughed until it was time to go home. The puppy was happy with his surprise, he loved exploring in the backyard all day.
+
+  [step  105] R=0.2391 | KL=0.666 | beta=0.5000 | 4.7s/step
+  [step  110] R=0.3023 | KL=0.881 | beta=0.5000 | 4.7s/step
+  [step  115] R=0.2638 | KL=1.084 | beta=0.5000 | 4.7s/step
+  [step  120] R=0.1986 | KL=1.095 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a rabbit. The rabbit loved to eat potatoes. One day, the rabbit went to the garden to pick some potatoes. But when the rabbit got there, there were no potatoes left! The rabbit felt sad.
+
+Suddenly, a man came and said, "I can supply you a potato." The rabbit was happy! The man gave the rabbit a big potato. The rabbit ate the potato and felt fine.
+
+But then, the rabbit saw a cat. The rabbit wanted to eat the rabbit. The rabbit tried to run away, but the cat caught the rabbit. The rabbit was very scared and ran away.
+
+The rabbit
+    >> The little girl loved to play with the animals in the barn. They would run and jump and laugh together. One day, the animals couldn't play anymore. They looked sad and didn't know what to do.
+
+The little girl realized how much she missed her friends. She wanted to make them happy again. So, she got her own animal toys and they started to play together. They made a big, noisy sound of the animals as they chased each other. The little girl was so happy that she could share her animal toys with her friends. They all laughed and played together again. From that day on, the little girl and her friends had so
+    >> One sunny day, the boy went to the beach. He wore a hat to keep the sun off his face and have a great time.
+
+But then, the sky became very dark and the wind started to blow. The boy looked up and saw a big hurricane coming! He was scared and ran as fast as he could back home.
+
+When he got inside, he locked the door and sat by the window. He was relieved to see the sun again. He waved goodbye to the sun and told it all his fun.
+
+But even after the hurricane came, the sky was clear and the wind was still very quiet. The boy was happy to be
+    >> In a small village, there lived a girl who loved to play with her toys. She had a big, soft teddy bear named Mr. Bear. They played together every evening. Mr. Bear had a sweet, round face with a big smile.
+
+One day, the girl and Mr. Bear went to the park to play. They played on the swings and the slide. They had so much fun. When it was time to go home, the girl hugged Mr. Bear very hard and gave him a big kiss on his sweet face. They hoped from that day on, they had a new best friend.
+
+    >> The puppy was so excited to be there. She started running around, barking and wagging her tail. The puppy wanted to play too, so she ran towards the big red ball. She jumped and rolled around the ball and it made her so happy. But then she saw something else in the distance. It was a lot of traffic, but her ball kept bouncing away from it! She chased it and chased it in a big circle. In a way, she couldn't keep up with the traffic. The puppy got worried about the sound of the traffic. 
+
+Suddenly, the puppy ran up a tree and saw a bright light. It was the puppy's
+  [step  125] R=0.2760 | KL=0.629 | beta=0.5000 | 5.1s/step
+  [step  130] R=0.2398 | KL=0.657 | beta=0.5000 | 4.7s/step
+  [step  135] R=0.2962 | KL=1.134 | beta=0.5000 | 4.7s/step
+  [step  140] R=0.2718 | KL=0.835 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a little girl named Lily. She loved to play outside in the park, but one day she saw a big, scary dog. Lily was fearful of the dog, so she ran to her mommy and daddy. 
+
+Her mommy hugged her and said, "Don't worry, Lily. The dog can't come near you. He's very friendly." 
+
+The family came back to the park and the dog was gone. Lily was happy to have her mommy and daddy protect her. From that day on, Lily wasn't fearful of dogs anymore.
+
+    >> The little girl loved to ride her bike in the park. She would make the wheel go round and round and round. One day, she decided to explore a big space with lots of trees and rocks. The grass was soft and green. The little girl had so much fun riding her bike. Suddenly, her bike hit a rock and she lost control and she fell down. She was okay, but her bike was broken. She was sad once again. 
+
+The little girl decided to fix her broken bike. She used some glue and tape to fix it. Now, her bike was good as new again. She was very happy and rode back to the
+    >> One sunny day, the boy went outside. He saw a nice big puddle. He thought it would be fun to splash in it. 
+
+He asked his mom, "Can I splash in the puddle?" His mom said, "Yes, you can splash in the puddle." The little boy was happy and ran to the puddle.
+
+He jumped high in the air and started to splash. The water splashed all around him. He was having a lot of fun. His mom watched him and laughed.
+
+    >> In a small village, there lived a little girl named Emma. Emma loved to dream big. Every day, she would fly through the sky and explore the world.
+
+One day, Emma found a big hole in the ground. She wondered what was inside. She was not patient and decided to take a look. She jumped in the hole, but it was not fun. She was very far from the sky, and couldn't get out.
+
+Emma asked a bird, who was flying high in the sky, "Help me. I'm stuck in the hole." The bird agreed to help her, and Emma was able to escape the dark hole. From then
+    >> The puppy was so excited to get some food! He started eating and playing with the girl's toys. She laughed and smiled as she played in the garden.
+
+Soon it was time for the puppy to go back to his mommy. He waved goodbye to the girl. She waved back and said, "You're welcome!"
+
+  [step  145] R=0.2859 | KL=0.416 | beta=0.5000 | 4.7s/step
+  [step  150] R=0.2353 | KL=0.526 | beta=0.5000 | 4.7s/step
+  [step  155] R=0.2828 | KL=1.077 | beta=0.5000 | 4.7s/step
+  [step  160] R=0.2291 | KL=0.383 | beta=0.5000 | 5.0s/step
+    >> Once upon a time, there was a big, big boat. The boat was so huge that it could carry lots of things. One day, something special happen to the boat. A little boy wanted to see the boat, so he went to the shore. 
+
+When he got to the shore, he looked all around. He saw the huge boat, all the trees and all the little animals. The boy was very happy and he wanted to explore!
+
+He walked around the shore and found a lot of things to play with. He took out a ball and a stick, and had so much fun. He even picked some berries to feed the ducks. 
+    >> The little girl loved to play pretend with her friends. She put a big pot on her head like a hat, and her friend Lily put a toy car in the pot. They played together in the kitchen, making lots of noise.
+
+Then, Lily found a big, empty box. She put the pot on her head like a hat, and they both laughed. They took turns doing that, and the pot still fit in the empty box. They played with the pot until it was time for Lily to go home. The little girl was happy that her friends had fun playing together.
+
+    >> One sunny day, the boy went to the park. He saw a big red truck. He was very happy. 
+
+The boy wanted to see the truck up close. He pushed a big red button. The truck made a loud honk sound. The boy laughed and played on the park the whole day.
+
+    >> In a small village, there lived a powerful wizard. The wizard loved to design things. He made things like houses, cars, and even toys. Everyone in the village saw the wizard's designs and felt very happy.
+
+One day, a little boy named Tim came to the wizard's village. The boy wanted to help the wizard design more things. He had a big brain and knew how to make things better. So, he decided to help the wizard.
+
+Tim and the wizard worked together to make the magic world a better place for Tim. They made the trees grow tall, the houses shaggy, and the toys disappear. Everyone in the village was
+    >> The puppy was so excited to see everything that he almost forgot to be nervous. He ran around chasing butterflies and jumping in the grass. 
+
+Soon, the puppy grew tired. He said goodbye to the big house and headed back home. From that day forward, the puppy always remembered to be brave.
+
+  [step  165] R=0.2748 | KL=0.911 | beta=0.5000 | 4.7s/step
+  [step  170] R=0.2282 | KL=0.379 | beta=0.5000 | 4.7s/step
+  [step  175] R=0.2555 | KL=1.260 | beta=0.5000 | 4.7s/step
+  [step  180] R=0.2516 | KL=0.662 | beta=0.5000 | 4.7s/step
+    >> Once upon a time, there was a clumsy little boy called Tom. One day, he was walking through the forest when he heard a noise.
+
+"What was that?" asked Tom.
+
+He looked around and saw a little ghost.
+
+"Hello," said Tom.
+
+"Hello, little ghost," it replied.
+
+Tom was a little scared so he paused to think.
+
+"Is this your friend?" he asked.
+
+"Yes, but it's really tricky to lie," the ghost said. "You need to be more careful when walking through the forest. It can be a bit tiring!"
+
+Tom was impressed
+    >> The little girl loved to jump, but she had a problem. Her jump was very high and she always fell down. It hurt her leg and it was very rough.
+
+So, the little girl decided to use a practice. If she practiced, she could jump better and be more careful. So, she took her time to practice every day.
+
+The little girl played a very nice game. She used her time being careful for a few days. After a few days, her leg was feeling much better.
+
+The little girl was happy and jumped around! She learned that day that if you practice, you can have a lot of fun to
+    >> One sunny day, the boy went outside to have some fun with his toys. He played all day long, running around and laughing. Suddenly, he noticed something moving in the grass. He bent down and found a little beetle. It was very shiny and had different colors. The boy was so excited! He squealed with joy and gently touched the beetle. The little beetle stopped and looked at him. The boy thought it was the most beautiful thing he had ever seen. It felt like his little beetle! They played together for a while until the sun went down. It was the best day ever!
+
+    >> In a small village, there lived a wise old lady. She was very kind and wise. Every evening, she would help people who were in need. She used her wisdom to bring peace and joy to all the people there.
+
+One evening, an anxious little girl came to the wise old lady. She was sad and scared. The old lady wanted to help the little girl. The old lady thought very hard about how to make the little girl happy - she wanted the little girl to read stories and play games.
+
+The wise old lady and the little girl played lots of fun games. The woman watched and listened to the stories before she went to bed in the
+    >> The puppy was so excited to have the new friend. He spent all the time playing and running on the bed. The puppy had so much fun with his new pup! 
+
+Moral of the story: Sometimes if you pay attention to those who are restless, you can find beauty and joy.
+
+  [step  185] R=0.2760 | KL=0.605 | beta=0.5000 | 4.8s/step
+
+======================================================================
+  Done: 186 steps in 889s (4.8s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — kl_mode/kl_fixed_b0.5_lr1e6
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.2447
+  Peak R:         0.3330
+  Final KL (avg): 0.625
+  Final beta:     0.5000
+--- Step 0 ---
+  Once upon a time, there was a curious little girl named Mia. One day, Mia went to the park with her mom to play. Mia had a lot of fun playing with her ball.
+
+But, suddenly, Mia forgot her favorite cup at home. She was sad and wanted to go back home. Her mom said they could return to her own home. Mia nodded and they went back to their own home.
+
+On their way, they saw a big, red ball in the park. Mia thought it was so cool and wanted to take it home too. But her mom said they couldn't because it belonged to the park. Mia felt sad, but she
+  The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so excited and started singing a little song about the ocean. As she was singing, a little dove came down from the sky and perched on her shoulder. The little girl was so amazed and said hello to the dove.
+
+The dove stayed with the little girl for a few weeks, singing her song and playing in the park. She even decided to visit the beach one day to play with
+  One sunny day, the boy went to the zoo to see the gorillas. He went to peek at them and noticed one gorilla was just playing around a nearby tree. The boy was curious so he slowly approached the gorilla. 
+
+The boy peeked at the gorilla in the tree and he couldn't believe it. He had never seen a gorilla make friends before! The boy was very excited and he stayed there for a long while.
+
+After a while, the boy had to go home. He wished he could see the gorilla up close so he could look at it a bit. But he was too young to know if the gorilla was safe. The boy
+  In a small village, there lived a boy named Tim. Tim had a toy fork. He loved to play with his fork all day long. He would use it to eat his food, even when he was not supposed to.
+
+One day, Tim found a dangerous snake in the woods. The snake had a mean look. Tim wanted to play with the snake, but he knew he should not touch it. So, he just watched it from far away.
+
+The snake was hungry and saw the food Tim was eating. It slithered closer to the food. Tim knew he should not eat the dangerous food. He wanted to tell someone about the snake. So
+  The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over the long grass. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him for a walk. He was very nice and gentle with the puppy. Suddenly, the owner saw an old man looking out of his window but didn't do anything.
+
+The puppy got impatient. He wanted the owner to come back and play with him. He barked and barked, but the owner didn't hear him. He kept walking until he reached the long grass.
+
+The
+--- Step 20 ---
+  Once upon a time, there was a fat chicken. He was living in the barn and was very content. He was a very content chicken and always had a happy life. 
+
+One day, the farmer said to the chicken, "You have learned so much from me, don't you? Show yourself how important and wonderful you are!" 
+
+The chicken was overjoyed and started showing it off to everyone once he could. The other animals were very happy for him and started to give him tasty chicken food. 
+
+But before the chicken could fly away, his big fat belly came down and landed right in the hen's hands. He was very
+  The little girl loved to play with her marbles every day. She loved picking up pink, round and square. She thought they were shiny and nice. Even though the marbles were ordinary.
+
+Every day, she would throw her marbles around the playground. They became very fast. Some days the balls bounced high. But the most times the marbles stayed with the little girl always.
+
+But then, she was playing with the shiny, round, colorful marbles. They were so sparkly and pretty that it made her feel special.
+
+Pretty soon, it was time for the little girl to go home. But she remembered the spark
+  One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the forest.
+
+The bird was so happy it could help the boy. They became friends and promised to never separate. The boy told his little friend that he was going to keep in touch because he had his own special plan.
+
+They smiled, hugged, and walked away together. He felt so happy and had lots of fun together. They were best friends and knew they could stay together no matter what time apart.
+
+  In a small village, there lived a three-year-old named Peter. One day, Peter's mom said, "We're going for a walk!" Peter was so happy that he ran out to the open field.
+
+In the distance, Peter saw a big brown tree. He looked up at it and asked his mom, "What's that?"
+"That's a tree," his mom said. "We use it to give shade to the animals."
+
+Peter was so impressed with the tree. He wanted to take it home. He wanted to take it all around the town. So, he started carrying the tree and putting it down at the edge
+  The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me tie you up in a very special way.” She quickly found a string, tying it around the puppy’s thin legs, so he couldn’t move.
+
+The pup thanked the girl and wagged his tail even harder then went off to explore the village he had been dreaming of! He never stopped looking at the village as he walked around, admiring all the sights and hearing the people’s kind faces.
+
+--- Step 40 ---
+  Once upon a time, there was a naughty dog named Max. Max liked to eat waste. He would eat it all the time. He would play with it and eat it all.
+
+One day, Max saw a bird feeder. Max thought it looked fun. He didn't know it was waste. He thought it was a waste. Max climbed on the waste feeder, and he ate it all at once. The bird was sad.
+
+Max felt bad for being naughty. He learned that not all waste is fun. From that day on, Max always ate his waste from the feeder. Max and the bird became good friends. They played together,
+  The little girl loved to use her eraser to draw pictures. She would make funny shapes and animals. One day, the little girl was drawing a picture of a big tree when she sneezed. The tree covered her nose with its branch. The little girl laughed and sneezed again. Her eraser did not get stuck.
+
+The little girl felt sad. She wanted her eraser to make her pictures look pretty. So, her mommy gave her an eraser to play with. The little girl was happy again. They played outside in the sun and had lots of fun. The end.
+
+  One sunny day, the boy went outside to play. He found a big rock that was smooth and shiny. He picked it up and put it on the ground.
+
+The boy looked out of his window and saw the weather. He was happy to go outside and play. The boy threw the rough rock and the rock far away. The boy felt better and played until it was time for bed.
+
+  In a small village, there lived a wealthy man. He had a big red bicycle that he loved very much. One evening, while riding his bicycle, he saw a small boy crying near a tree.
+
+The wealthy man stopped and asked the small boy, "Why are you crying?" The small boy replied, "I wanted water, but no mom." The wealthy man felt sad for the small boy. He thought about it and decided not to give his drink to the small boy.
+
+The small boy was very sad and ran away. While running, the big red bicycle was not strong enough for the small boy. In the end, the little boy got hurt
+  The puppy was so excited to see the new puppy he started to wag his tail. The puppy reached out his long tail and the two animals cuddled up to each other and were safe together.
+
+--- Step 60 ---
+  Once upon a time, there was a little dog named Bobo. Bobo loved to race with his friends. They would run very fast and win the races.
+
+One day, Bobo and his friends went to the park. They saw a big box. Bobo's friends were very curious. "What is in the box?" asked Bobo. His friends looked at each other and did a funny joke.
+
+Bobo wanted to see if there was anything in the box. He jumped high and dropped his toy car. It started to move! Bobo and his friends laughed so much. They all had just as much fun racing around the park.
+
+  The little girl loved to use her creative magic wand. She would pretend that she was a fairy in a whole new world. Whenever people came along, she always gave them a big smile and a twinkle in her eye.
+
+On sunny days, the garden changed with the magic all the time. The people of the garden would play and laugh in the sunshine while the girl would use her magical wand to make beautiful flowers bloom.
+
+The little girl was very proud of her magic. She would use it to be very creative. With her wand in hand, the garden was a special part of the world!
+
+  One sunny day, the boy went outside and spread his warm clothes on the ground. He ran around and made shapes with his arms. He was so happy watching the stars twinkle in the night sky.
+
+The boy went back inside and lay in his bed. He was happy and content.
+
+The next day, the boy decided to go out again in the summer to try to spread more clothes. He did this time. He even put on warm clothes and a warm hat. He had lots of fun with his clothes and he was very proud of what he had done. 
+
+At the end of the summer, the boy spread dry clothes and he
+  In a small village, there lived a brave lion. The lion did not like to play tricks on his friends. He gave them bad meat that they could all struggle. The animals in the village were scared of the lion.
+
+One day, a kind giraffe came to the village. She saw the sad animals and wanted to help. She thought of a plan. She walked up to the lion and whispered her magic word. The lion felt a little happy and knew that his friends needed the meat.
+
+The next day, all the animals in the village came to the lion's cave to get the meat. They saw the lion eating the meat. The lion was
+  The puppy was so excited to go out exploring. He ran up and down the porch, exploring his new places. Everywhere he went he saw exciting things. He saw a big box filled with shiny things and even a tiny red car made of wood. Everywhere he looked he could see something new and exciting.
+
+The big puppy went back inside happy and content. He lay down and smiled, looking forward to the next exciting adventure.
+
+--- Step 80 ---
+  Once upon a time, there was a dog named Max. Max was very happy playing with his toys, but he was also lonely because he didn't have any friends to play with. One day, Max saw a little girl playing alone and he wanted to play with her too. But Max was too shy and scared to talk to the little girl.
+
+Max went up to the little girl and barked softly, but he didn't bark back. The girl was frightened and didn't know what to do. She decided to help Max and offered him a treat. Max happily took the treat and started to wag his tail because he knew the girl was his friend.
+
+  The little girl loved to play outside. She liked to skip around in the grass, but she knew she could be safe anywhere. One day, the sun was shining brightly and the little girl wanted to go out and play. She asked her mom to help her make a bright, hot day to play.
+
+The mom took the little girl to the park, where the tall trees and the strong wind was blowing. Even though it wasn’t very warm, the little girl had so much fun playing in the hot sunshine. She was running around, exploring and singing while playing, until all of a sudden, the little girl realised that she was lost!
+  One sunny day, the boy went outside to the playground. But he didn't feel at home. He just sat on the log, feeling sad. Suddenly, a kind lady walked by and said, “I have a special kind of magic. If you jump high enough, you can reach the clouds.”
+
+The boy smiled, jumped, and hopped up to the sky. Sure enough, he could feel the magic of the log begin. Sure enough, he leapt and jumped higher than ever! When he looked down, the land was filled with bright colors. He made a wish and jumped with joy.
+
+Suddenly, his wish had come true.
+  In a small village, there lived a happy boy named Tim. Tim loved to play with his ball all day long. He would throw the ball up high and then run to catch it. One day, while playing with his friend, he threw the ball too far, and it got stuck in a tree. The ball got stuck in the tree, and Tim felt sad.
+
+Tim had an idea. He went to find his big brother, Sam, who was good at fixing things. Sam listened to Tim and Max because he was his best friend. He climbed the tree and tried to get the ball down for them. With a big push, Sam came down and said
+  The puppy was so excited to see the big fish and his big, green eyes. He wanted to play with it, but he was scared. His mommy saw him looking sadly at the water with shock. She saw the puppy in the water, and the big fish inside it came closer to the shore.
+
+The little brave puppy wasn't scared of the big fish at all. He bravely dove into the water and swam down deep. He kept diving until he found the big fish. When he came down, he could hear it roaring. It was the most beautiful noise ever.
+
+The puppy got to play with his new friend and had so
+--- Step 100 ---
+  Once upon a time, there was a poor little girl named Lily. She lived in a small house with her mom and dad. One day, they decided to take a trip to the west.
+
+Lily said, "Mom, I own a big adventure. What's the best for us?"
+
+Her mom replied, "We are going to a new place, Lily. There are lots of good things to do there."
+
+Lily became very excited and asked, "Where are we going?"
+
+Her mom said, "We will see. But first, we have to find a cheap place to stay."
+
+Lily and her family walked
+  The little girl loved to play near the ocean. One day, while she was playing, she got too close to the water and her dress got stuck in the sand. She tried to pull it out but it wouldn't budge. 
+
+Suddenly, a big wave came and took the dress away. The little girl was very sad because her dress was a little dirty and she couldn't wear it anymore. She felt embarrassed and ashamed of her dress. 
+
+From that day on, the little girl never played near the ocean again. She was too scared of the water and the lost dress. She missed her dress and wished it would come back to
+  One sunny day, the boy went to the park to play. He saw a big dog playing by the lake. The boy was happy to play with the big dog. They played tag, hide and seek, and catch. The boy had a lot of fun with the dog and the big dog.
+
+As the sun began to set, it was time for the boy to go home. He said goodbye to the big dog and gave him one more hug. The big dog wagged his tail and licked the boy's face. They are best friends forever.
+
+  In a small village, there lived a kind lady. She loved to help people and her friends. Everyone in the village liked her. They thought she was impressive.
+
+One sunny day, the kind lady went for a walk in the forest. She saw a little bird near the water. The bird looked sad. The kind lady asked, "Why are you sad, little bird?" The bird said, "I lost my home and I don't know where to go."
+
+The kind lady wanted to help the bird. She took the bird home and cared for it. They became good friends. The bird felt safe and happy. The people in the village were proud
+  The puppy was so excited to see the surprise that he ran as fast as he could. He ran up to the door and shouted “Who's there?”
+
+The puppy was so happy that he ran out to the backyard to check on the surprise. They played games and laughed until it was time to go home. The puppy was happy with his surprise, he loved exploring in the backyard all day.
+
+--- Step 120 ---
+  Once upon a time, there was a rabbit. The rabbit loved to eat potatoes. One day, the rabbit went to the garden to pick some potatoes. But when the rabbit got there, there were no potatoes left! The rabbit felt sad.
+
+Suddenly, a man came and said, "I can supply you a potato." The rabbit was happy! The man gave the rabbit a big potato. The rabbit ate the potato and felt fine.
+
+But then, the rabbit saw a cat. The rabbit wanted to eat the rabbit. The rabbit tried to run away, but the cat caught the rabbit. The rabbit was very scared and ran away.
+
+The rabbit
+  The little girl loved to play with the animals in the barn. They would run and jump and laugh together. One day, the animals couldn't play anymore. They looked sad and didn't know what to do.
+
+The little girl realized how much she missed her friends. She wanted to make them happy again. So, she got her own animal toys and they started to play together. They made a big, noisy sound of the animals as they chased each other. The little girl was so happy that she could share her animal toys with her friends. They all laughed and played together again. From that day on, the little girl and her friends had so
+  One sunny day, the boy went to the beach. He wore a hat to keep the sun off his face and have a great time.
+
+But then, the sky became very dark and the wind started to blow. The boy looked up and saw a big hurricane coming! He was scared and ran as fast as he could back home.
+
+When he got inside, he locked the door and sat by the window. He was relieved to see the sun again. He waved goodbye to the sun and told it all his fun.
+
+But even after the hurricane came, the sky was clear and the wind was still very quiet. The boy was happy to be
+  In a small village, there lived a girl who loved to play with her toys. She had a big, soft teddy bear named Mr. Bear. They played together every evening. Mr. Bear had a sweet, round face with a big smile.
+
+One day, the girl and Mr. Bear went to the park to play. They played on the swings and the slide. They had so much fun. When it was time to go home, the girl hugged Mr. Bear very hard and gave him a big kiss on his sweet face. They hoped from that day on, they had a new best friend.
+
+  The puppy was so excited to be there. She started running around, barking and wagging her tail. The puppy wanted to play too, so she ran towards the big red ball. She jumped and rolled around the ball and it made her so happy. But then she saw something else in the distance. It was a lot of traffic, but her ball kept bouncing away from it! She chased it and chased it in a big circle. In a way, she couldn't keep up with the traffic. The puppy got worried about the sound of the traffic. 
+
+Suddenly, the puppy ran up a tree and saw a bright light. It was the puppy's
+--- Step 140 ---
+  Once upon a time, there was a little girl named Lily. She loved to play outside in the park, but one day she saw a big, scary dog. Lily was fearful of the dog, so she ran to her mommy and daddy. 
+
+Her mommy hugged her and said, "Don't worry, Lily. The dog can't come near you. He's very friendly." 
+
+The family came back to the park and the dog was gone. Lily was happy to have her mommy and daddy protect her. From that day on, Lily wasn't fearful of dogs anymore.
+
+  The little girl loved to ride her bike in the park. She would make the wheel go round and round and round. One day, she decided to explore a big space with lots of trees and rocks. The grass was soft and green. The little girl had so much fun riding her bike. Suddenly, her bike hit a rock and she lost control and she fell down. She was okay, but her bike was broken. She was sad once again. 
+
+The little girl decided to fix her broken bike. She used some glue and tape to fix it. Now, her bike was good as new again. She was very happy and rode back to the
+  One sunny day, the boy went outside. He saw a nice big puddle. He thought it would be fun to splash in it. 
+
+He asked his mom, "Can I splash in the puddle?" His mom said, "Yes, you can splash in the puddle." The little boy was happy and ran to the puddle.
+
+He jumped high in the air and started to splash. The water splashed all around him. He was having a lot of fun. His mom watched him and laughed.
+
+  In a small village, there lived a little girl named Emma. Emma loved to dream big. Every day, she would fly through the sky and explore the world.
+
+One day, Emma found a big hole in the ground. She wondered what was inside. She was not patient and decided to take a look. She jumped in the hole, but it was not fun. She was very far from the sky, and couldn't get out.
+
+Emma asked a bird, who was flying high in the sky, "Help me. I'm stuck in the hole." The bird agreed to help her, and Emma was able to escape the dark hole. From then
+  The puppy was so excited to get some food! He started eating and playing with the girl's toys. She laughed and smiled as she played in the garden.
+
+Soon it was time for the puppy to go back to his mommy. He waved goodbye to the girl. She waved back and said, "You're welcome!"
+
+--- Step 160 ---
+  Once upon a time, there was a big, big boat. The boat was so huge that it could carry lots of things. One day, something special happen to the boat. A little boy wanted to see the boat, so he went to the shore. 
+
+When he got to the shore, he looked all around. He saw the huge boat, all the trees and all the little animals. The boy was very happy and he wanted to explore!
+
+He walked around the shore and found a lot of things to play with. He took out a ball and a stick, and had so much fun. He even picked some berries to feed the ducks. 
+  The little girl loved to play pretend with her friends. She put a big pot on her head like a hat, and her friend Lily put a toy car in the pot. They played together in the kitchen, making lots of noise.
+
+Then, Lily found a big, empty box. She put the pot on her head like a hat, and they both laughed. They took turns doing that, and the pot still fit in the empty box. They played with the pot until it was time for Lily to go home. The little girl was happy that her friends had fun playing together.
+
+  One sunny day, the boy went to the park. He saw a big red truck. He was very happy. 
+
+The boy wanted to see the truck up close. He pushed a big red button. The truck made a loud honk sound. The boy laughed and played on the park the whole day.
+
+  In a small village, there lived a powerful wizard. The wizard loved to design things. He made things like houses, cars, and even toys. Everyone in the village saw the wizard's designs and felt very happy.
+
+One day, a little boy named Tim came to the wizard's village. The boy wanted to help the wizard design more things. He had a big brain and knew how to make things better. So, he decided to help the wizard.
+
+Tim and the wizard worked together to make the magic world a better place for Tim. They made the trees grow tall, the houses shaggy, and the toys disappear. Everyone in the village was
+  The puppy was so excited to see everything that he almost forgot to be nervous. He ran around chasing butterflies and jumping in the grass. 
+
+Soon, the puppy grew tired. He said goodbye to the big house and headed back home. From that day forward, the puppy always remembered to be brave.
+
+--- Step 180 ---
+  Once upon a time, there was a clumsy little boy called Tom. One day, he was walking through the forest when he heard a noise.
+
+"What was that?" asked Tom.
+
+He looked around and saw a little ghost.
+
+"Hello," said Tom.
+
+"Hello, little ghost," it replied.
+
+Tom was a little scared so he paused to think.
+
+"Is this your friend?" he asked.
+
+"Yes, but it's really tricky to lie," the ghost said. "You need to be more careful when walking through the forest. It can be a bit tiring!"
+
+Tom was impressed
+  The little girl loved to jump, but she had a problem. Her jump was very high and she always fell down. It hurt her leg and it was very rough.
+
+So, the little girl decided to use a practice. If she practiced, she could jump better and be more careful. So, she took her time to practice every day.
+
+The little girl played a very nice game. She used her time being careful for a few days. After a few days, her leg was feeling much better.
+
+The little girl was happy and jumped around! She learned that day that if you practice, you can have a lot of fun to
+  One sunny day, the boy went outside to have some fun with his toys. He played all day long, running around and laughing. Suddenly, he noticed something moving in the grass. He bent down and found a little beetle. It was very shiny and had different colors. The boy was so excited! He squealed with joy and gently touched the beetle. The little beetle stopped and looked at him. The boy thought it was the most beautiful thing he had ever seen. It felt like his little beetle! They played together for a while until the sun went down. It was the best day ever!
+
+  In a small village, there lived a wise old lady. She was very kind and wise. Every evening, she would help people who were in need. She used her wisdom to bring peace and joy to all the people there.
+
+One evening, an anxious little girl came to the wise old lady. She was sad and scared. The old lady wanted to help the little girl. The old lady thought very hard about how to make the little girl happy - she wanted the little girl to read stories and play games.
+
+The wise old lady and the little girl played lots of fun games. The woman watched and listened to the stories before she went to bed in the
+  The puppy was so excited to have the new friend. He spent all the time playing and running on the bed. The puppy had so much fun with his new pup! 
+
+Moral of the story: Sometimes if you pay attention to those who are restless, you can find beauty and joy.
+
+
+Plots saved to ./outputs/kl_mode/kl_fixed_b0.5_lr1e6/

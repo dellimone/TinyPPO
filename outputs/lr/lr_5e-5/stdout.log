@@ -1,0 +1,288 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : lr
+Run        : lr_5e-5
+Output dir : ./outputs/lr/lr_5e-5
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=4
+  kl_mode=adaptive, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 22693.82it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 4079.69it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 9461.16 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 15195.71 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=4
+LR: 5e-05
+KL: mode=adaptive, init_coef=0.3, target=10.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.2923 | 5.8s/step
+    >> Once upon a time, there was a little bird who loved to play in a big, blue forest. One day, while he was playing, he saw a hunter walking through the forest. The hunter was looking very dirty and had a filthy face. The bird knew that it was not nice to be dirty or dirty so he flew up to the hunter and asked what was wrong.
+
+The hunter looked down at the bird and saw that it was upset. "I am not feeling well and the bird can help me too," said the hunter. "Yes, we can!" said the bird. The bird flew down and rested on the hunter's lap. The hunter felt happy
+    >> The little girl loved to look with the yellow book and tell all the other people who were laughing at the big joke. She laughed and shared her books with all the people she knew.
+
+That day, the little girl was still happy and her mommy was even happier that she could make a difference.
+
+    >> One sunny day, the boy went outside and noticed that the fence had something extra special. It was a very rare and unusual animal! The boy opened a box and found it inside was a puppy!
+
+The boy quickly opened the box and said to the puppy: "My friend, never forget your help!" Then, it turned around and ran away. The boy felt very sad.
+
+But then the boy saw something else, an even more wonderful thing. On the side of the fence there was a small rabbit, hopping around. The boy realized that all good things have a happy ending in life. He smiled, gave the rabbit a big hug, and said
+    >> In a small village, there lived a boy named Tim. Tim had a toy with a handle. He was very grateful to have a friend like his friend. "I can use this to help my friend," Tim told his friend. Tim's friend smiled back and said yes.
+
+Together, they played in the garden. They saw a butterfly with a pretty wing. The wing could fly and Tim and his friend would talk to it. They would watch the butterfly fly around the tree and it would say, "Tweet, tweet." Tim and his friend would pretend to fly and be friends with the butterfly.
+
+Every day, Tim and his friend would pretend to talk
+    >> The puppy was so excited to see her new friend. The puppy and the girl hopped up and down and ran around again.
+
+The little girl never forgot her best friends from next springtime.
+
+  [step    5] R=0.2657 | KL=29.225 | beta=0.3317 | 4.7s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.0638 | KL=15.004 | beta=0.3764 | 4.0s/step
+  [step   15] R=0.0685 | KL=13.067 | beta=0.4254 | 1.5s/step
+  [step   20] R=0.0443 | KL=12.810 | beta=0.4827 | 1.4s/step
+    >> Once upon a time, there was a
+
+    >> The little girl loved to
+
+    >> One sunny day, the boy went
+
+    >> In a small village, there lived a
+
+    >> The puppy was so excited to
+
+  [step   25] R=0.0829 | KL=12.724 | beta=0.5477 | 1.4s/step
+  [step   30] R=0.0596 | KL=13.637 | beta=0.6215 | 1.3s/step
+  [step   35] R=0.0462 | KL=12.431 | beta=0.7053 | 1.3s/step
+  [step   40] R=0.0780 | KL=12.348 | beta=0.8003 | 1.2s/step
+    >> Once upon a time, there was a
+
+    >> The little girl loved to
+
+    >> One sunny day, the boy went
+
+    >> In a small village, there lived a
+
+    >> The puppy was so excited to
+
+  [step   45] R=0.0321 | KL=13.887 | beta=0.9081 | 1.3s/step
+  [step   50] R=0.0379 | KL=12.722 | beta=1.0304 | 1.2s/step
+  [step   55] R=0.0489 | KL=12.308 | beta=1.1693 | 1.4s/step
+  [step   60] R=0.0419 | KL=12.456 | beta=1.3268 | 1.4s/step
+    >> Once upon a time, there was a
+
+    >> The little girl loved to
+
+    >> One sunny day, the boy went'"
+
+    >> In a small village, there lived a
+
+    >> The puppy was so excited to
+
+  [step   65] R=0.0443 | KL=12.829 | beta=1.5045 | 1.4s/step
+  [step   70] R=0.0425 | KL=12.341 | beta=1.7072 | 1.3s/step
+  [step   75] R=0.0514 | KL=13.985 | beta=1.9372 | 1.3s/step
+  [step   80] R=0.0546 | KL=14.614 | beta=2.1937 | 1.4s/step
+    >> Once upon a time, there was a
+
+    >> The little girl loved to
+
+    >> One sunny day, the boy went
+
+    >> In a small village, there lived a
+
+    >> The puppy was so excited to
+
+  [step   85] R=0.0467 | KL=15.073 | beta=2.4892 | 1.3s/step
+  [step   90] R=0.0355 | KL=20.572 | beta=2.8246 | 1.6s/step
+  [step   95] R=0.0311 | KL=465.420 | beta=3.2051 | 4.6s/step
+  [step  100] R=0.0124 | KL=723.530 | beta=3.6370 | 4.7s/step
+    >> Once upon a time, there was a Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The little girl loved to
+
+    >> One sunny day, the boy went restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> In a small village, there lived a restoration Hut Hut restoration restoration restorationator restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration Hut favour Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The puppy was so excited toator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  [step  105] R=0.0029 | KL=1444.443 | beta=4.1269 | 4.7s/step
+  [step  110] R=0.0161 | KL=1959.134 | beta=4.6829 | 4.7s/step
+  [step  115] R=0.0079 | KL=1317.584 | beta=5.3138 | 4.8s/step
+  [step  120] R=0.0049 | KL=1173.261 | beta=6.0297 | 4.7s/step
+    >> Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration restoration restoration restoration restoration wizards Hut Hut Hut Hut Hut
+    >> The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut HutUponator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  [step  125] R=0.0083 | KL=971.515 | beta=6.8421 | 5.1s/step
+  [step  130] R=0.0054 | KL=973.270 | beta=7.7639 | 4.8s/step
+  [step  135] R=0.0054 | KL=974.956 | beta=8.8098 | 4.6s/step
+  [step  140] R=0.0060 | KL=974.254 | beta=9.9967 | 4.7s/step
+    >> Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  [step  145] R=0.0079 | KL=988.688 | beta=11.3435 | 4.7s/step
+  [step  150] R=0.0177 | KL=944.686 | beta=12.8718 | 4.7s/step
+  [step  155] R=0.0035 | KL=979.527 | beta=14.6059 | 4.7s/step
+  [step  160] R=0.0074 | KL=936.680 | beta=16.5736 | 4.7s/step
+    >> Once upon a time, there was a Hut Hut Hut Hut Hut Hutator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  [step  165] R=0.0068 | KL=978.969 | beta=18.8065 | 4.7s/step
+  [step  170] R=0.0103 | KL=991.295 | beta=21.3402 | 4.7s/step
+  [step  175] R=0.0089 | KL=966.738 | beta=24.2152 | 4.8s/step
+  [step  180] R=0.0036 | KL=985.431 | beta=27.4776 | 4.7s/step
+    >> Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut coaster Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+    >> The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  [step  185] R=0.0109 | KL=981.183 | beta=31.1794 | 4.8s/step
+
+======================================================================
+  Done: 186 steps in 621s (3.3s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — lr/lr_5e-5
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.0073
+  Peak R:         0.3728
+  Final KL (avg): 956.508
+  Final beta:     31.1794
+--- Step 0 ---
+  Once upon a time, there was a little bird who loved to play in a big, blue forest. One day, while he was playing, he saw a hunter walking through the forest. The hunter was looking very dirty and had a filthy face. The bird knew that it was not nice to be dirty or dirty so he flew up to the hunter and asked what was wrong.
+
+The hunter looked down at the bird and saw that it was upset. "I am not feeling well and the bird can help me too," said the hunter. "Yes, we can!" said the bird. The bird flew down and rested on the hunter's lap. The hunter felt happy
+  The little girl loved to look with the yellow book and tell all the other people who were laughing at the big joke. She laughed and shared her books with all the people she knew.
+
+That day, the little girl was still happy and her mommy was even happier that she could make a difference.
+
+  One sunny day, the boy went outside and noticed that the fence had something extra special. It was a very rare and unusual animal! The boy opened a box and found it inside was a puppy!
+
+The boy quickly opened the box and said to the puppy: "My friend, never forget your help!" Then, it turned around and ran away. The boy felt very sad.
+
+But then the boy saw something else, an even more wonderful thing. On the side of the fence there was a small rabbit, hopping around. The boy realized that all good things have a happy ending in life. He smiled, gave the rabbit a big hug, and said
+  In a small village, there lived a boy named Tim. Tim had a toy with a handle. He was very grateful to have a friend like his friend. "I can use this to help my friend," Tim told his friend. Tim's friend smiled back and said yes.
+
+Together, they played in the garden. They saw a butterfly with a pretty wing. The wing could fly and Tim and his friend would talk to it. They would watch the butterfly fly around the tree and it would say, "Tweet, tweet." Tim and his friend would pretend to fly and be friends with the butterfly.
+
+Every day, Tim and his friend would pretend to talk
+  The puppy was so excited to see her new friend. The puppy and the girl hopped up and down and ran around again.
+
+The little girl never forgot her best friends from next springtime.
+
+--- Step 20 ---
+  Once upon a time, there was a
+
+  The little girl loved to
+
+  One sunny day, the boy went
+
+  In a small village, there lived a
+
+  The puppy was so excited to
+
+--- Step 40 ---
+  Once upon a time, there was a
+
+  The little girl loved to
+
+  One sunny day, the boy went
+
+  In a small village, there lived a
+
+  The puppy was so excited to
+
+--- Step 60 ---
+  Once upon a time, there was a
+
+  The little girl loved to
+
+  One sunny day, the boy went'"
+
+  In a small village, there lived a
+
+  The puppy was so excited to
+
+--- Step 80 ---
+  Once upon a time, there was a
+
+  The little girl loved to
+
+  One sunny day, the boy went
+
+  In a small village, there lived a
+
+  The puppy was so excited to
+
+--- Step 100 ---
+  Once upon a time, there was a Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The little girl loved to
+
+  One sunny day, the boy went restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  In a small village, there lived a restoration Hut Hut restoration restoration restorationator restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration Hut favour Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The puppy was so excited toator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+--- Step 120 ---
+  Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration restoration restoration restoration restoration restoration restoration wizards Hut Hut Hut Hut Hut
+  The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut HutUponator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+--- Step 140 ---
+  Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut restoration Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+--- Step 160 ---
+  Once upon a time, there was a Hut Hut Hut Hut Hut Hutator Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+--- Step 180 ---
+  Once upon a time, there was a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The little girl loved to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  One sunny day, the boy went Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut coaster Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  In a small village, there lived a Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+  The puppy was so excited to Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut Hut
+
+Plots saved to ./outputs/lr/lr_5e-5/

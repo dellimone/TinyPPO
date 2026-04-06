@@ -1,0 +1,518 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : ppo_epochs
+Run        : ppo_e8_lr1e6
+Output dir : ./outputs/ppo_epochs/ppo_e8_lr1e6
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=8
+  kl_mode=adaptive, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 23056.94it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 3147.14it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  17%|█▋        | 1000/6000 [00:00<00:00, 5594.36 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 22991.74 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 19773.87 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=8
+LR: 1e-06
+KL: mode=adaptive, init_coef=0.3, target=10.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.2923 | 8.9s/step
+    >> Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a boy being rude to his sister. He ran and slapped his sister's hand. Lily knew that wasn't nice, so she went over to the boy and said, "That's not nice. Can we be friends?" The boy apologized and said he liked her drawing too.
+
+Lily and her friends played together and had a lot of fun. When it was time to go home
+    >> The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so excited and started singing a little song about the ocean. As she was singing, a little dove came down from the sky and perched on her shoulder. The little girl was so amazed and said hello to the dove.
+
+The dove stayed with the little girl for a few weeks, singing her song and playing in the park. She even decided to visit the beach one day to play with
+    >> One sunny day, the boy went to the train station. He had a great time picking up things and going to see different places. He got to a train station again and got on to the train tracks. Inside the station, he saw lots of things. There was popcorn to eat, and he even got a ride on a train! He had so much fun that day. 
+
+When it was time to go home, the boy remembered to leave. The little boy rode back to the station and went back to the train station. He had so much fun at the train station and couldn't wait to go back to the subway station again.
+
+    >> In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day long. Tim would run fast and laugh as he chased his toy.
+
+One sunny day, Tim met a girl named Sue. Sue had a toy too, but hers was fake. She wanted to play with Tim. They played together and had lots of fun. The fake toy in the middle could not hide.
+
+Tim and Sue decided to show the toy to their friends. The fake toy danced in the wind as they played. The other kids were amazed by the fake toy, and they all laughed together. They played
+    >> The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over the long grass. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him for a walk. He was very nice and gentle with the puppy. Suddenly, the owner saw an old man looking out of his window but didn't do anything.
+
+The puppy got impatient. He wanted the owner to come back and play with him. He barked and barked, but the owner didn't hear him. He kept walking until he reached the long grass.
+
+The
+  [step    5] R=0.2003 | KL=2.334 | beta=0.2568 | 8.2s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.3340 | KL=4.797 | beta=0.2255 | 7.9s/step
+  [step   15] R=0.2831 | KL=5.797 | beta=0.1981 | 7.9s/step
+  [step   20] R=0.3298 | KL=4.645 | beta=0.1740 | 7.8s/step
+    >> Once upon a time, there was a fat chicken. The fat chicken was big, and she was very happy. One day, the fat chicken saw a boy playing nearby. She thought about staying in the warm sun.
+
+The fat chicken decided to stay near the boy and listen to him. The boy was happy to hear her voice. The girl saw the chicken and said, "Hello, little chicken!" The fat chicken replied with a sweet voice, "Hello!" The girl and the chicken became friends. They played together every day and would stay in the sun for a long time.
+
+    >> The little girl loved to play with her toys, especially her dolls. One day, she found a broken doll in her toy box. She asked her mommy, "Mommy, why is this doll broken?" Her mommy replied, "I don't know, we can fix it."
+
+The little girl was sad, but she decided to forgive the doll too. She used her other dolls to make new toys, but they did not appreciate what they were doing that day. They threw the broken doll away and continued to play together.
+
+    >> One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could say the word. They became friends and promised to never separate. The boy and the little bird learned many words and were happy in the end.
+
+    >> In a small village, there lived a three-year-old named Peter. Peter loved playing outside with his friends, no matter the weather.
+
+One day, Peter saw an umbrella up in a tree. He asked his friends if it was available.
+
+"Yes!" said his friends happily.
+
+"Let's take the umbrella to our home!" they said. The three of them held umbrellas in their hands and walked home.
+
+When they got to their house, they thanked the sky for the lovely umbrella. They waved goodbye and said, "Bye! Thank you for helping us play!"
+
+    >> The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl took out the newspaper and she wanted to give it to the puppy. The puppy ran to her and said, "Thank you for the newspaper!"
+
+The girl grinned and said, "You're welcome!"
+
+The puppy and the girl were so happy that they played together all day long. They never stopped being happy!
+
+  [step   25] R=0.3723 | KL=6.443 | beta=0.1529 | 8.0s/step
+  [step   30] R=0.4587 | KL=5.226 | beta=0.1343 | 7.9s/step
+  [step   35] R=0.3792 | KL=5.179 | beta=0.1179 | 8.2s/step
+  [step   40] R=0.4000 | KL=6.425 | beta=0.1036 | 7.8s/step
+    >> Once upon a time, there was a young goat named Sarah. She liked to march in the sun and play all day.
+
+One day, a group of children came to play with the young goat. They had so much fun together and Sarah was very happy. She marched around the field and even made new friends.
+
+When it was time to go home, Sarah gave the young goat a big hug and a kiss goodbye. She waved goodbye to her new friends and marched away, feeling happy and excited for the next time she could wear her favorite dress to play with her new friends.
+
+    >> The little girl loved to explore. She was very curious. 
+One day, the little girl wanted to make something special. She decided to make a yummy cake. She mixed together all the ingredients - butter, flour, and sugar, eggs and milk. She put the treat in the oven and set the timer. 
+
+The little girl waited patiently and when it was finally time, the cake was soft. She put it on a plate and she ate it. It was the best cake she ever had! 
+
+The little girl had a really fun day exploring and playing in the garden. She was so happy she decided to bake something y
+    >> One sunny day, the boy went to the big city, wearing their big cap. They were so excited to visit the city. The boy played on the swings and slides, and he smiled while he played. At the end of the day, the boy was tired. He went home to his small cap and they both fell asleep.
+
+    >> In a small village, there lived a boy named Tim. Tim was a troubled boy who always wanted to play with his toys.
+
+One day, a police officer came to their village. He said, "Tim, you must do what I say or else I will strike you!" Tim knew he had to do what the police officer said, so he stayed back.
+
+Tim played with his toys and the police officer struck him. The police officer struck him again or the town. Tim was very happy that he was able to play with his toys and the police officer. From that day on, Tim and his toys lived in the big city and played together.
+
+    >> The puppy was so excited to be out in the sunshine.
+
+The dog said he wanted the puppy to be a good boy. The boy smiled and then hugged the pup.
+
+The loyal dog had been saved and the boy was very happy.
+
+  [step   45] R=0.3728 | KL=6.654 | beta=0.0910 | 7.9s/step
+  [step   50] R=0.4713 | KL=7.914 | beta=0.0799 | 7.8s/step
+  [step   55] R=0.4825 | KL=7.412 | beta=0.0710 | 8.2s/step
+  [step   60] R=0.5554 | KL=9.493 | beta=0.0650 | 7.7s/step
+    >> Once upon a time, there was a young girl named Mia. She had a dog named Bob. Mia and Bob loved to play together on the floor.
+
+One day, while playing rough, Tim took Bob to the house. Sam, Lily, and Bob played with Lucy and Sam very much. They threw a ball and Bob chased it. They played for a long time.
+
+As the sun began to set, Mia, Sam, and Bob said goodbye. They all had a good time playing together. They all went to sleep, happy from their fun day.
+
+    >> The little girl loved to play on the big, round ground and she had lots of fun!
+
+    >> One sunny day, the boy went exploring and he found a toy. The toy was blue and the boy liked its color. He played with the toy all day.
+
+As the day ended, the boy went home with the toy. He looked all around and he noticed something. He did not know what it was. He asked his mum, and she said it was special and the toy was meant for him. 
+
+The boy liked the toy so much. He kept it forever and he was very happy. He was happy, and he liked that the toy belonged to him. The End.
+
+    >> In a small village, there lived a small witch. She was not happy because she had no friends. One day, the witch saw a boy trying to push a ball. She said to him, "Why are you sad?"
+
+The boy said, "I found a ball, but I don't know how to push it. Can you help me?" The witch smiled and said, "Of course, I will help you. But first, we must go to the park."
+
+At the park, they played with the ball. The ball was very loud when it came down. The poor boy was not happy. He asked the witch, "Do you want
+    >> The puppy was so excited to have a new friend to play with. He quickly hopped up the ladder and the puppy started to bark back. Soon they were having so much fun together. 
+
+The puppy and the puppy enjoyed playing together for the rest of the day. He was very happy because he had found a new friend to play with.
+
+  [step   65] R=0.5260 | KL=8.578 | beta=0.0584 | 8.2s/step
+  [step   70] R=0.6046 | KL=8.320 | beta=0.0533 | 7.7s/step
+  [step   75] R=0.6093 | KL=8.278 | beta=0.0490 | 7.7s/step
+  [step   80] R=0.5844 | KL=9.919 | beta=0.0480 | 7.7s/step
+    >> Once upon a time, there was a big house. It was very messy. Nobody liked the house.
+
+One day, a little girl named Lily came to the house. She had a very happy smile. Lily liked the house too! She started to make the house clean and nice. After a while, she said, "I like the house!" They both smiled and were happy.
+
+    >> The little girl loved to play the game, as it was new to her. Every day, the little girl and the ball played together. They became very healthy and the girl was very happy.
+
+    >> One sunny day, the boy went to the park with his dog. They played all day long. They had a lot of fun. They were very happy.
+
+    >> In a small village, there lived a kind man and dog. They were happy and loved each other very much. One day, the man and dog went to the park to play with their friends. They played and ran all around the park. They were so happy to be together and loved each other. The man and his dog enjoyed their time together, and they all enjoyed the beautiful season.
+
+    >> The puppy was so excited to be free.
+
+The little puppy ran home and lived in two happy family. He was so happy - because he was finally able to have his own family!
+
+  [step   85] R=0.6347 | KL=10.200 | beta=0.0485 | 7.7s/step
+  [step   90] R=0.6248 | KL=9.321 | beta=0.0487 | 7.6s/step
+  [step   95] R=0.6324 | KL=8.820 | beta=0.0482 | 7.9s/step
+  [step  100] R=0.6600 | KL=10.856 | beta=0.0495 | 8.0s/step
+    >> Once upon a time, there was a man. He had a wife. They loved each other very much. They decided to get married. They had fun and laughed a lot. When they got home, they were both so happy. They were so excited that they became husband and wife again. They would go for walks together. They were happy together. The end.
+
+    >> The little girl loved to write in her diary every day. She liked to draw pictures with her friends. It made her so happy. And the little girl kept her diary as a special treat. The end.
+
+    >> One sunny day, the boy went for a jog with his ball. He saw some children playing near the river. "Hi, can I play with you?" asked the boy, with the ball behind him following him.
+
+The boy and the ball played together all day. They laughed and had so much fun. The ball was very happy that it found such a special friend. The boy and the ball played until the sun went down, and then they went home to rest.
+
+    >> In a small village, there lived a little girl who loved to play outside. She had a lot of fun with her family. They would run and laugh together all the time.
+
+One day, the little girl and her family decided to make peace and fun in the village. They took turns making a little village with little houses and trees. The village was very peaceful and happy. All the children were excited to play there.
+
+The family all sat in their little village and played together. They laughed and had a great time, as long as they played together. They played all day and made lots of love. At the end of the day, the family went
+    >> The puppy was so excited to hear its story. Every day the puppy would come along with its friends and have fun together. They would have so much fun and were very happy. The puppy was always smiling and everyone was very happy.
+
+  [step  105] R=0.6878 | KL=10.233 | beta=0.0488 | 7.7s/step
+  [step  110] R=0.6311 | KL=10.164 | beta=0.0497 | 7.5s/step
+  [step  115] R=0.6566 | KL=10.418 | beta=0.0500 | 7.9s/step
+  [step  120] R=0.6601 | KL=10.372 | beta=0.0507 | 7.9s/step
+    >> Once upon a time, there was a little girl named Lucy. She loved to skip and jump all around her house. One day, Lucy found a big cookie on the floor. She was very happy and picked up the cookie with her teeth. Lucy wanted to share the cookie with her friends, so she went outside to skip back to her house. She skipped and jumped all the way back to her house. Lucy had a great day and shared her big cookie with her friends.
+
+    >> The little girl loved to watch the little one explore the lab.
+
+    >> One sunny day, the boy went outside to play. He played and played until he felt tired and happy. Then, the boy went back home to rest and dream in his big and colorful body.
+
+    >> In a small village, there lived a boy named Tim. Tim was a very honest youth, and he loved to help others.
+
+One day, Tim met a girl named Lily. She had a pretty doll to give to Tim. Tim said, "Thank you, Lily! Can we play together?" Lily said, "Yes, Tim! Let's play and have fun!"
+
+Tim and Lily played all day. They shared toys and laughed a lot. They remained good friends forever. They lived happily ever after.
+
+    >> The puppy was so excited to be out of the dark again. The family watched as the puppy ran around and jumped and barked happily. 
+
+The puppy was so happy that everyone saw a gray pup playing in the light. The family laughed, and the puppy ran one last time before continuing on its way. The puppy was so content with its new bright coat that it was always happy to be safe and safe.
+
+  [step  125] R=0.5980 | KL=11.120 | beta=0.0525 | 7.5s/step
+  [step  130] R=0.5786 | KL=9.668 | beta=0.0522 | 7.9s/step
+  [step  135] R=0.6829 | KL=10.090 | beta=0.0524 | 7.8s/step
+  [step  140] R=0.6772 | KL=9.289 | beta=0.0528 | 8.0s/step
+    >> Once upon a time, there was a lovely little girl who loved to spin. She would spin and spin and giggle with joy, and she would twirl and spin with joy.
+
+One day, the little girl found a big piece of lumber in the backyard. She thought this was lovely and decided to spin it every time she spun it. So she wound it and pushed it with her little hands to make it spin. To the little girl, the top made a loud sound that spun around in circles, and it made her happy.
+
+The little girl played with the lumber every day until she was so tired that she had to stop. She decided to take
+    >> The little girl loved to play with the bird. They were very good friends. They had a lot of fun together.
+
+    >> One sunny day, the boy went to the market to buy a fruit. He looked at the nice fruits and chose a big one that smelled so good.
+
+When it was time to leave at the park, he walked back home with his fruit. When he got there he opened it, and saw that it had sweet memories! He was so happy that he could remember his day at the fair.
+
+    >> In a small village, there lived a bald man who was kind to everyone in the village. One day, the bald man went out to play in the big forest.
+
+While walking, the bald man saw something shiny in the big forest. He ran to it with his bag and found a big gem. It was round and pretty. The bald man was happy to find the gem in the big forest. He wanted to show it to everyone in the village.
+
+The bald man picked up the gem and went back to his home. He showed the gem to his friends, and they all liked it. They played with the gem all day in the big forest.
+    >> The puppy was so excited to see the person up and give him a big hug! And they all lived happily ever after!
+
+  [step  145] R=0.6049 | KL=9.070 | beta=0.0517 | 7.7s/step
+  [step  150] R=0.6238 | KL=9.792 | beta=0.0506 | 7.8s/step
+  [step  155] R=0.6389 | KL=9.279 | beta=0.0501 | 7.5s/step
+  [step  160] R=0.6349 | KL=10.847 | beta=0.0491 | 7.6s/step
+    >> Once upon a time, there was a big, happy family. They lived in a big house in the west. They loved to play and laugh together every day. The family was very happy, and everyone lived in the big house in the west.
+
+    >> The little girl loved to swing her ball. She played every day and always had fun. The man who drove to the park was happy to have a friend to play with.
+
+    >> One sunny day, the boy went outside to play. He swung back and forth on his scooter, pretending to drive. The sun began to set behind the hill, and it was time to go inside. 
+
+The boy was happy that he had a fun day with his scooter. He knew it was a normal day again, but he was excited for more adventures.
+
+    >> In a small village, there lived a kind rabbit. The rabbit loved to provide help to the other animals in the village. They shared their food and played together. The village was full of happy children, and they all lived happily ever after.
+
+    >> The puppy was so excited to see the new person who was a new puppy!
+ 
+The new puppy was overjoyed and excited too. They hugged each other and had so much fun together.
+
+The puppy and the new puppy were great friends who would play together every day. They were both so happy!
+
+  [step  165] R=0.6892 | KL=9.908 | beta=0.0489 | 7.8s/step
+  [step  170] R=0.6442 | KL=11.146 | beta=0.0509 | 7.5s/step
+  [step  175] R=0.6163 | KL=11.008 | beta=0.0503 | 7.7s/step
+  [step  180] R=0.6851 | KL=10.016 | beta=0.0497 | 7.6s/step
+    >> Once upon a time, there was a little girl named Lily. 
+
+Lily loved to walk with her mom. They would walk to the park every week. 
+
+One day, Lily and her mom were walking to the park when they saw a big cake. "Mommy, can we eat this cake, it looks delicious?" asked Lily. 
+
+"Sure, Lily. Let's eat it together." said her mom. So they ate the cake and it was so delicious and it made Lily very happy. 
+
+After that, they continued to walk to the park. They had so much fun playing and having fun. The end.
+
+    >> The little girl loved to dance and she had lots of fun.
+
+    >> One sunny day, the boy went to the park with his toy. He showed his friends and they all played together. They were all happy and had lots of fun.
+
+    >> In a small village, there lived a deaf girl. She was very kind and had many friends. All the villagers shared fun times and learned to be happy. The girl was very happy too because she had so many friends.
+
+    >> The puppy was so excited to finally have a friend to protect. They played together and the puppy was no longer scared. They had lots of fun playing and protecting each other. They loved to make each other happy. The puppy was happy and they were both the best of friends, the rough puppy and the rough wool bunny home.
+
+  [step  185] R=0.6585 | KL=10.590 | beta=0.0489 | 7.8s/step
+
+======================================================================
+  Done: 186 steps in 1460s (7.9s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — ppo_epochs/ppo_e8_lr1e6
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.6552
+  Peak R:         0.7353
+  Final KL (avg): 9.783
+  Final beta:     0.0489
+--- Step 0 ---
+  Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a boy being rude to his sister. He ran and slapped his sister's hand. Lily knew that wasn't nice, so she went over to the boy and said, "That's not nice. Can we be friends?" The boy apologized and said he liked her drawing too.
+
+Lily and her friends played together and had a lot of fun. When it was time to go home
+  The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so excited and started singing a little song about the ocean. As she was singing, a little dove came down from the sky and perched on her shoulder. The little girl was so amazed and said hello to the dove.
+
+The dove stayed with the little girl for a few weeks, singing her song and playing in the park. She even decided to visit the beach one day to play with
+  One sunny day, the boy went to the train station. He had a great time picking up things and going to see different places. He got to a train station again and got on to the train tracks. Inside the station, he saw lots of things. There was popcorn to eat, and he even got a ride on a train! He had so much fun that day. 
+
+When it was time to go home, the boy remembered to leave. The little boy rode back to the station and went back to the train station. He had so much fun at the train station and couldn't wait to go back to the subway station again.
+
+  In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day long. Tim would run fast and laugh as he chased his toy.
+
+One sunny day, Tim met a girl named Sue. Sue had a toy too, but hers was fake. She wanted to play with Tim. They played together and had lots of fun. The fake toy in the middle could not hide.
+
+Tim and Sue decided to show the toy to their friends. The fake toy danced in the wind as they played. The other kids were amazed by the fake toy, and they all laughed together. They played
+  The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over the long grass. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him for a walk. He was very nice and gentle with the puppy. Suddenly, the owner saw an old man looking out of his window but didn't do anything.
+
+The puppy got impatient. He wanted the owner to come back and play with him. He barked and barked, but the owner didn't hear him. He kept walking until he reached the long grass.
+
+The
+--- Step 20 ---
+  Once upon a time, there was a fat chicken. The fat chicken was big, and she was very happy. One day, the fat chicken saw a boy playing nearby. She thought about staying in the warm sun.
+
+The fat chicken decided to stay near the boy and listen to him. The boy was happy to hear her voice. The girl saw the chicken and said, "Hello, little chicken!" The fat chicken replied with a sweet voice, "Hello!" The girl and the chicken became friends. They played together every day and would stay in the sun for a long time.
+
+  The little girl loved to play with her toys, especially her dolls. One day, she found a broken doll in her toy box. She asked her mommy, "Mommy, why is this doll broken?" Her mommy replied, "I don't know, we can fix it."
+
+The little girl was sad, but she decided to forgive the doll too. She used her other dolls to make new toys, but they did not appreciate what they were doing that day. They threw the broken doll away and continued to play together.
+
+  One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could say the word. They became friends and promised to never separate. The boy and the little bird learned many words and were happy in the end.
+
+  In a small village, there lived a three-year-old named Peter. Peter loved playing outside with his friends, no matter the weather.
+
+One day, Peter saw an umbrella up in a tree. He asked his friends if it was available.
+
+"Yes!" said his friends happily.
+
+"Let's take the umbrella to our home!" they said. The three of them held umbrellas in their hands and walked home.
+
+When they got to their house, they thanked the sky for the lovely umbrella. They waved goodbye and said, "Bye! Thank you for helping us play!"
+
+  The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl took out the newspaper and she wanted to give it to the puppy. The puppy ran to her and said, "Thank you for the newspaper!"
+
+The girl grinned and said, "You're welcome!"
+
+The puppy and the girl were so happy that they played together all day long. They never stopped being happy!
+
+--- Step 40 ---
+  Once upon a time, there was a young goat named Sarah. She liked to march in the sun and play all day.
+
+One day, a group of children came to play with the young goat. They had so much fun together and Sarah was very happy. She marched around the field and even made new friends.
+
+When it was time to go home, Sarah gave the young goat a big hug and a kiss goodbye. She waved goodbye to her new friends and marched away, feeling happy and excited for the next time she could wear her favorite dress to play with her new friends.
+
+  The little girl loved to explore. She was very curious. 
+One day, the little girl wanted to make something special. She decided to make a yummy cake. She mixed together all the ingredients - butter, flour, and sugar, eggs and milk. She put the treat in the oven and set the timer. 
+
+The little girl waited patiently and when it was finally time, the cake was soft. She put it on a plate and she ate it. It was the best cake she ever had! 
+
+The little girl had a really fun day exploring and playing in the garden. She was so happy she decided to bake something y
+  One sunny day, the boy went to the big city, wearing their big cap. They were so excited to visit the city. The boy played on the swings and slides, and he smiled while he played. At the end of the day, the boy was tired. He went home to his small cap and they both fell asleep.
+
+  In a small village, there lived a boy named Tim. Tim was a troubled boy who always wanted to play with his toys.
+
+One day, a police officer came to their village. He said, "Tim, you must do what I say or else I will strike you!" Tim knew he had to do what the police officer said, so he stayed back.
+
+Tim played with his toys and the police officer struck him. The police officer struck him again or the town. Tim was very happy that he was able to play with his toys and the police officer. From that day on, Tim and his toys lived in the big city and played together.
+
+  The puppy was so excited to be out in the sunshine.
+
+The dog said he wanted the puppy to be a good boy. The boy smiled and then hugged the pup.
+
+The loyal dog had been saved and the boy was very happy.
+
+--- Step 60 ---
+  Once upon a time, there was a young girl named Mia. She had a dog named Bob. Mia and Bob loved to play together on the floor.
+
+One day, while playing rough, Tim took Bob to the house. Sam, Lily, and Bob played with Lucy and Sam very much. They threw a ball and Bob chased it. They played for a long time.
+
+As the sun began to set, Mia, Sam, and Bob said goodbye. They all had a good time playing together. They all went to sleep, happy from their fun day.
+
+  The little girl loved to play on the big, round ground and she had lots of fun!
+
+  One sunny day, the boy went exploring and he found a toy. The toy was blue and the boy liked its color. He played with the toy all day.
+
+As the day ended, the boy went home with the toy. He looked all around and he noticed something. He did not know what it was. He asked his mum, and she said it was special and the toy was meant for him. 
+
+The boy liked the toy so much. He kept it forever and he was very happy. He was happy, and he liked that the toy belonged to him. The End.
+
+  In a small village, there lived a small witch. She was not happy because she had no friends. One day, the witch saw a boy trying to push a ball. She said to him, "Why are you sad?"
+
+The boy said, "I found a ball, but I don't know how to push it. Can you help me?" The witch smiled and said, "Of course, I will help you. But first, we must go to the park."
+
+At the park, they played with the ball. The ball was very loud when it came down. The poor boy was not happy. He asked the witch, "Do you want
+  The puppy was so excited to have a new friend to play with. He quickly hopped up the ladder and the puppy started to bark back. Soon they were having so much fun together. 
+
+The puppy and the puppy enjoyed playing together for the rest of the day. He was very happy because he had found a new friend to play with.
+
+--- Step 80 ---
+  Once upon a time, there was a big house. It was very messy. Nobody liked the house.
+
+One day, a little girl named Lily came to the house. She had a very happy smile. Lily liked the house too! She started to make the house clean and nice. After a while, she said, "I like the house!" They both smiled and were happy.
+
+  The little girl loved to play the game, as it was new to her. Every day, the little girl and the ball played together. They became very healthy and the girl was very happy.
+
+  One sunny day, the boy went to the park with his dog. They played all day long. They had a lot of fun. They were very happy.
+
+  In a small village, there lived a kind man and dog. They were happy and loved each other very much. One day, the man and dog went to the park to play with their friends. They played and ran all around the park. They were so happy to be together and loved each other. The man and his dog enjoyed their time together, and they all enjoyed the beautiful season.
+
+  The puppy was so excited to be free.
+
+The little puppy ran home and lived in two happy family. He was so happy - because he was finally able to have his own family!
+
+--- Step 100 ---
+  Once upon a time, there was a man. He had a wife. They loved each other very much. They decided to get married. They had fun and laughed a lot. When they got home, they were both so happy. They were so excited that they became husband and wife again. They would go for walks together. They were happy together. The end.
+
+  The little girl loved to write in her diary every day. She liked to draw pictures with her friends. It made her so happy. And the little girl kept her diary as a special treat. The end.
+
+  One sunny day, the boy went for a jog with his ball. He saw some children playing near the river. "Hi, can I play with you?" asked the boy, with the ball behind him following him.
+
+The boy and the ball played together all day. They laughed and had so much fun. The ball was very happy that it found such a special friend. The boy and the ball played until the sun went down, and then they went home to rest.
+
+  In a small village, there lived a little girl who loved to play outside. She had a lot of fun with her family. They would run and laugh together all the time.
+
+One day, the little girl and her family decided to make peace and fun in the village. They took turns making a little village with little houses and trees. The village was very peaceful and happy. All the children were excited to play there.
+
+The family all sat in their little village and played together. They laughed and had a great time, as long as they played together. They played all day and made lots of love. At the end of the day, the family went
+  The puppy was so excited to hear its story. Every day the puppy would come along with its friends and have fun together. They would have so much fun and were very happy. The puppy was always smiling and everyone was very happy.
+
+--- Step 120 ---
+  Once upon a time, there was a little girl named Lucy. She loved to skip and jump all around her house. One day, Lucy found a big cookie on the floor. She was very happy and picked up the cookie with her teeth. Lucy wanted to share the cookie with her friends, so she went outside to skip back to her house. She skipped and jumped all the way back to her house. Lucy had a great day and shared her big cookie with her friends.
+
+  The little girl loved to watch the little one explore the lab.
+
+  One sunny day, the boy went outside to play. He played and played until he felt tired and happy. Then, the boy went back home to rest and dream in his big and colorful body.
+
+  In a small village, there lived a boy named Tim. Tim was a very honest youth, and he loved to help others.
+
+One day, Tim met a girl named Lily. She had a pretty doll to give to Tim. Tim said, "Thank you, Lily! Can we play together?" Lily said, "Yes, Tim! Let's play and have fun!"
+
+Tim and Lily played all day. They shared toys and laughed a lot. They remained good friends forever. They lived happily ever after.
+
+  The puppy was so excited to be out of the dark again. The family watched as the puppy ran around and jumped and barked happily. 
+
+The puppy was so happy that everyone saw a gray pup playing in the light. The family laughed, and the puppy ran one last time before continuing on its way. The puppy was so content with its new bright coat that it was always happy to be safe and safe.
+
+--- Step 140 ---
+  Once upon a time, there was a lovely little girl who loved to spin. She would spin and spin and giggle with joy, and she would twirl and spin with joy.
+
+One day, the little girl found a big piece of lumber in the backyard. She thought this was lovely and decided to spin it every time she spun it. So she wound it and pushed it with her little hands to make it spin. To the little girl, the top made a loud sound that spun around in circles, and it made her happy.
+
+The little girl played with the lumber every day until she was so tired that she had to stop. She decided to take
+  The little girl loved to play with the bird. They were very good friends. They had a lot of fun together.
+
+  One sunny day, the boy went to the market to buy a fruit. He looked at the nice fruits and chose a big one that smelled so good.
+
+When it was time to leave at the park, he walked back home with his fruit. When he got there he opened it, and saw that it had sweet memories! He was so happy that he could remember his day at the fair.
+
+  In a small village, there lived a bald man who was kind to everyone in the village. One day, the bald man went out to play in the big forest.
+
+While walking, the bald man saw something shiny in the big forest. He ran to it with his bag and found a big gem. It was round and pretty. The bald man was happy to find the gem in the big forest. He wanted to show it to everyone in the village.
+
+The bald man picked up the gem and went back to his home. He showed the gem to his friends, and they all liked it. They played with the gem all day in the big forest.
+  The puppy was so excited to see the person up and give him a big hug! And they all lived happily ever after!
+
+--- Step 160 ---
+  Once upon a time, there was a big, happy family. They lived in a big house in the west. They loved to play and laugh together every day. The family was very happy, and everyone lived in the big house in the west.
+
+  The little girl loved to swing her ball. She played every day and always had fun. The man who drove to the park was happy to have a friend to play with.
+
+  One sunny day, the boy went outside to play. He swung back and forth on his scooter, pretending to drive. The sun began to set behind the hill, and it was time to go inside. 
+
+The boy was happy that he had a fun day with his scooter. He knew it was a normal day again, but he was excited for more adventures.
+
+  In a small village, there lived a kind rabbit. The rabbit loved to provide help to the other animals in the village. They shared their food and played together. The village was full of happy children, and they all lived happily ever after.
+
+  The puppy was so excited to see the new person who was a new puppy!
+ 
+The new puppy was overjoyed and excited too. They hugged each other and had so much fun together.
+
+The puppy and the new puppy were great friends who would play together every day. They were both so happy!
+
+--- Step 180 ---
+  Once upon a time, there was a little girl named Lily. 
+
+Lily loved to walk with her mom. They would walk to the park every week. 
+
+One day, Lily and her mom were walking to the park when they saw a big cake. "Mommy, can we eat this cake, it looks delicious?" asked Lily. 
+
+"Sure, Lily. Let's eat it together." said her mom. So they ate the cake and it was so delicious and it made Lily very happy. 
+
+After that, they continued to walk to the park. They had so much fun playing and having fun. The end.
+
+  The little girl loved to dance and she had lots of fun.
+
+  One sunny day, the boy went to the park with his toy. He showed his friends and they all played together. They were all happy and had lots of fun.
+
+  In a small village, there lived a deaf girl. She was very kind and had many friends. All the villagers shared fun times and learned to be happy. The girl was very happy too because she had so many friends.
+
+  The puppy was so excited to finally have a friend to protect. They played together and the puppy was no longer scared. They had lots of fun playing and protecting each other. They loved to make each other happy. The puppy was happy and they were both the best of friends, the rough puppy and the rough wool bunny home.
+
+
+Plots saved to ./outputs/ppo_epochs/ppo_e8_lr1e6/

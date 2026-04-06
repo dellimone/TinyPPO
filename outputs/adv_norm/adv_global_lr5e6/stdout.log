@@ -1,0 +1,522 @@
+Device: cuda
+GPU: NVIDIA GeForce RTX 5060 Ti
+
+Experiment : adv_norm
+Run        : adv_global_lr5e6
+Output dir : ./outputs/adv_norm/adv_global_lr5e6
+
+Config:
+  model=roneneldan/TinyStories-33M
+  batch=64, mini_batch=16, ppo_epochs=4
+  kl_mode=adaptive, advantage_normalize=global
+  prompts=6000, max_new_tokens=128
+
+[init] Loading tokenizer + policy...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/56 [00:00<?, ?it/s]Loading weights: 100%|██████████| 56/56 [00:00<00:00, 23429.53it/s]
+[1mGPTNeoForCausalLM LOAD REPORT[0m from: roneneldan/TinyStories-33M
+Key                                                   | Status     |  | 
+------------------------------------------------------+------------+--+-
+transformer.h.{0, 1, 2, 3}.attn.attention.bias        | UNEXPECTED |  | 
+transformer.h.{0, 1, 2, 3}.attn.attention.masked_bias | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+Policy params: 68,514,817
+
+[init] Loading reward model...
+Loading weights:   0%|          | 0/201 [00:00<?, ?it/s]Loading weights: 100%|██████████| 201/201 [00:00<00:00, 4111.86it/s]
+[1mRobertaForSequenceClassification LOAD REPORT[0m from: SamLowe/roberta-base-go_emotions
+Key                             | Status     |  | 
+--------------------------------+------------+--+-
+roberta.embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[init] Building dataset...
+Map:   0%|          | 0/6000 [00:00<?, ? examples/s]Map:  50%|█████     | 3000/6000 [00:00<00:00, 11972.04 examples/s]Map: 100%|██████████| 6000/6000 [00:00<00:00, 18853.87 examples/s]
+Dataset: 6000 prompts
+Example: Tim and Mia like to play in the park.
+PPO config: batch=64, mini_batch=16, ppo_epochs=4
+LR: 5e-06
+KL: mode=adaptive, init_coef=0.3, target=10.0, horizon=500
+Advantage normalize: global
+Steps per epoch: 93, total: ~186
+
+======================================================================
+  Starting training: 2 epochs, cuda
+======================================================================
+
+  [step    0] R=0.1746 | KL=0.000 | beta=0.2923 | 5.8s/step
+    >> Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+    >> The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+    >> One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+    >> In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+    >> The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+  [step    5] R=0.2716 | KL=2.744 | beta=0.2568 | 4.7s/step
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+  [step   10] R=0.3617 | KL=5.167 | beta=0.2255 | 5.1s/step
+  [step   15] R=0.3443 | KL=7.611 | beta=0.1991 | 4.8s/step
+  [step   20] R=0.4240 | KL=8.063 | beta=0.1750 | 4.7s/step
+    >> Once upon a time, there was a fat chicken. The fat chicken was big, and she was very happy. One day, the fat chicken saw a pond. The pond had a lot of water in it. The fat chicken wanted to drink the water. So, the fat chicken went in the pond. She drank the water and made a big splash. She was happy now because the pond was a good place to be. The end.
+
+    >> The little girl loved to play with her football, and was so happy when it was time to go to bed. From then on, she learned to appreciate the things that came before she was going to bed.
+
+    >> One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could see the boy. They became friends and the boy was very kind. He told the little boy that he was a loyal friend in the bird. The bird felt very special.
+
+They played together all day. The little boy was the happiest and most loyal child in the world. In the evenings, they would sit in the park, just like before time.
+
+The small boy and the bird always stayed by
+    >> In a small village, there lived a strong woman. She had a pretty pet. The strong woman and her pet went for a walk. They played together under a big tree. The brave woman and her pet were very happy.
+
+    >> The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me take you home.”
+
+Momma said, “Yes, let's take care of each other.”
+
+But the pup made a sad sound and put his head down on his heel. The girl asked, “What’s wrong?”
+
+The puppy spoke, “I’m lost and I need to find my home!”
+
+Momma said, “I will take you home. Let’s get
+  [step   25] R=0.3721 | KL=9.269 | beta=0.1580 | 4.8s/step
+  [step   30] R=0.4200 | KL=7.546 | beta=0.1412 | 4.7s/step
+  [step   35] R=0.4764 | KL=8.124 | beta=0.1268 | 4.7s/step
+  [step   40] R=0.4964 | KL=7.752 | beta=0.1194 | 4.6s/step
+    >> Once upon a time, there was a little boy named Timmy. Timmy loved to ride his bike, but his mom said he had to wear his helmet and always wear a helmet so he wouldn't get hurt.
+
+One day, Timmy wanted to ride his bike in a crazy way, but his mom thought it was okay because she was proud of him for wearing his helmet. Timmy felt happy and went outside to explore. He rode his bike around and pretended he was going into the craziest place ever!
+
+    >> The little girl loved to use her brain again. The old man always made her feel good. When he had to go away, the little girl smiled and waved back with her brain.
+
+    >> One sunny day, the boy went outside that he had a picnic with his mummy. He ate a tasty sandwich and a juicy apple. Afterwards, he went running around the earth in the warm summer sunshine. He said goodbye to the earth, the warm sunshine, and everything in the park. When it was time to go home, the boy was so sleepy. The next day, he went on a picnic with his mummy and they had some lovely afternoon together playing games. The little boy and his mummy enjoyed the sunshine and the birds flying in the sky. 
+
+It was a lovely picnic and the boy was so happy. He had enjoyed being outside with his mummy and
+    >> In a small village, there lived a wealthy man. He had a lot of things that someone had lost. The wealthy man saw that the people in his village were very hungry. So, he decided to help them.
+
+The wealthy man went to the village and asked everyone what to feed. They told him that they were going to build something to eat. The wealthy man decided to take a lot of food from his village to help give things to the people in his village. He was happy to see how much food they all needed to fill the village.
+
+The wealthy man was happy to help all the people in the village. He found good food to bring to
+    >> The puppy was so excited to see the new thing he and the girl became the best of friends.
+
+  [step   45] R=0.4733 | KL=10.380 | beta=0.1171 | 5.1s/step
+  [step   50] R=0.5020 | KL=8.801 | beta=0.1123 | 4.6s/step
+  [step   55] R=0.5330 | KL=8.802 | beta=0.1092 | 4.7s/step
+  [step   60] R=0.5173 | KL=8.904 | beta=0.1026 | 4.7s/step
+    >> Once upon a time, there was a little dog named Bob. Bob was a very happy dog, but he was always hungry. One day, while Bob was playing outside, he started to feel very tired. His belly hurt a lot, and he couldn't play anymore.
+
+Bob saw a little bird and wanted to help. He asked the bird to help him heal his tummy. The little bird was very kind and told Bob to rest and close his eyes for a long time. Bob did as he was told, and when he opened his eyes again, he felt much better. 
+
+From that day on, Bob spent his days playing outside with his friends
+    >> The little girl loved to visit her elderly friend every year. They were always having fun together and going on tough adventures.
+
+    >> One sunny day, the boy went outside and spread his toys from his room on a big sunny day. The boy put two colorful toys on some chairs and a soft blanket. He was happy and laughed as he looked all around his room. 
+
+The boy had so much fun making up stories with his toys. He felt so happy and excited when his friends came to explore his room. They all laughed and played together until it was time for the boy to go home. 
+
+The boy thanked his friends for being so polite and spending time with him. He smiled and waved goodbye as he ran to his house. He was so happy to have a nice day
+    >> In a small village, there lived a brave lawyer. The lawyer did many jobs to help his country, like clean and loyal. They were very happy to be together.
+
+One day, the brave lawyer had a big job to go to. He wanted to show his country to all their friends. He took all his hard work to help his country stay clean. All his friends were very proud of his hero. They all clapped and cheered when the brave lawyer remembered that they all looked up at the sky.
+
+    >> The puppy was so excited to be out exploring. He ran around and played with his friends, and he even went swimming in the creek. 
+At the end of the adventure, the puppy was so happy that he had gotten to explore. He knew he would stay on his farm and have lots of fun exploring. 
+The end.
+
+  [step   65] R=0.4945 | KL=9.324 | beta=0.0981 | 4.7s/step
+  [step   70] R=0.4847 | KL=9.507 | beta=0.0953 | 4.7s/step
+  [step   75] R=0.5311 | KL=10.357 | beta=0.0899 | 5.0s/step
+  [step   80] R=0.5640 | KL=11.438 | beta=0.0943 | 4.7s/step
+    >> Once upon a time, there was a dog named Max. Max was very happy playing with his toys, but he was also lonely because he didn't have any friends to play with.
+
+One day, Max went to the park and saw some other dogs playing together. Max wanted to join in, but he didn't know how to play with the other dogs. He was too shy. 
+
+But then, a little girl named Lily came to the park. Lily saw Max and wanted to be his friend. The other dogs liked him and they had lots of fun together. Max was no longer lonely because he had friends to play with. He was very happy.
+    >> The little girl loved to play outside in the sun. She would run and jump and laugh all day long. One day, while the girl was playing, she looked up and saw a beautiful rainbow in the sky. She was so happy and she wanted to show everyone the rainbow. She ran to her house and started playing under the rainbow once more. The end.
+
+    >> One sunny day, the boy went outside to play. He saw a shiny object and wanted to try and pick it up. 
+
+But his parents said, "No, you must resist. You must stay away from the object."
+
+Little boy said, "Okay, mommy. I will resist."
+
+So the mother said, "Remember what your mommy said." 
+
+Little boy listened to her and stayed away from the shiny object. And he was very happy!
+
+    >> In a small village, there lived a happy family. They loved to celebrate together all the time. They had a lot of fun and yummy food to eat. The family was very happy.
+
+    >> The puppy was so excited to see the big dog and his big, fluffy coat. It was like the biggest and the most popular of all Spot's coat!
+
+Spot and the big dog became great friends. Every day they would play and have lots of fun. Whenever Joe came to visit the puppy he was always excited to have such a popular, fun pet.
+
+  [step   85] R=0.5399 | KL=9.753 | beta=0.0947 | 4.6s/step
+  [step   90] R=0.6204 | KL=12.206 | beta=0.0987 | 5.0s/step
+  [step   95] R=0.6355 | KL=9.170 | beta=0.0994 | 4.7s/step
+  [step  100] R=0.5747 | KL=10.526 | beta=0.1013 | 4.7s/step
+    >> Once upon a time, there was a little green girl named Lily. She loved to play in the park with her friends. One sunny day, they found a big maze made of trees. Lily and her friends decided to play in the maze and have a lot of fun. 
+
+As the sun began to set, the friends went home for dinner. Lily's mom made her favorite food, spaghetti. It was so delicious and yummy! Lily ate all her dinner and thanked her mom for the great day they had together. 
+
+Finally, Lily was full and happy. She hugged her mom and went back outside to play. She ran back to her green garden
+    >> The little girl loved to play near the ocean. One day, while playing near the water, she saw a man with a bucket and a shovel. The man was collecting fish to build a house. The little girl thought the man was very kind and the man was happy to share his fish with her. They kept playing and building more fish together until it was time to go home. The little girl was happy that she saw the man at the beach and the ocean because it was so fun and she felt very peaceful and happy.
+
+    >> One sunny day, the boy went to the park to play. He saw his friend Sue playing by herself. Tom saw the friendly boy and was ready to play too. They played tag and ran around the park. They were both very happy. The sun began to set, and it was time to go home. Tom and Sue said goodbye to each other and went home. Tom felt happy that he met Sue and had a great day.
+
+    >> In a small village, there lived a kind mouse. The mouse loved to dance to her own rhythm every day. The mouse and the mouse were very happy together.
+
+One sunny day, the mouse danced to the rhythm of her new home. She was not shy anymore. The mouse and the bear danced to the rhythm every day together. They all became best friends, and the mouse and the bear were always happy together.
+
+    >> The puppy was so excited to see the mail that he ran around the room.
+
+The kitten ran around the house and meowed. The puppy said, "You're so cheerful!" The little boy was happy to hear that. He smiled and enjoyed the fun of the adventure. 
+
+The friendly puppy and the mail was happy. He was glad to have a new friend. The puppy and the little boy were very good friends and they enjoyed having adventures together.
+
+  [step  105] R=0.5524 | KL=9.547 | beta=0.1042 | 4.7s/step
+  [step  110] R=0.5849 | KL=10.565 | beta=0.1050 | 4.7s/step
+  [step  115] R=0.5353 | KL=9.501 | beta=0.1023 | 4.7s/step
+  [step  120] R=0.5154 | KL=9.811 | beta=0.1074 | 4.7s/step
+    >> Once upon a time, there was a rabbit. The rabbit loved to play all day. One day, the rabbit found a shiny belt. The rabbit put the belt around his waist and looked very funny. The rabbit wagged his tail happily.
+
+    >> The little girl loved to play with the dog. She would bring toys, they would play all day long. The little girl and the dog were very happy together.
+
+    >> One sunny day, the boy went to the beach and filled his special hat with sand. He was happy when he was playing in the sand and enjoying his sand up and down the shore. He and his friends had a wonderful time at the beach that day. The lazy boy was happy to have had a wonderful day and filled his hat with sand.
+
+    >> In a small village, there lived a girl who loved to play with her toys. One day, she found a pretty shiny rock in her backyard. She showed it to her mom and asked if it would provide her with another shiny rock. Her mom said yes and gave her a big, heavy rock. The little girl was so happy and thanked her mom. She gave her mom a big kiss on the nose and her mom beamed with joy. The end.
+
+    >> The puppy was so excited to meet the lady. They played all night long. They sang and danced. The lady and the puppy were together to have fun. And the lady was very happy to have a new furry knot.
+
+  [step  125] R=0.5253 | KL=11.851 | beta=0.1111 | 4.7s/step
+  [step  130] R=0.6600 | KL=11.719 | beta=0.1125 | 5.0s/step
+  [step  135] R=0.5403 | KL=10.726 | beta=0.1137 | 4.7s/step
+  [step  140] R=0.6011 | KL=8.097 | beta=0.1109 | 4.7s/step
+    >> Once upon a time, there was a little boy named Timmy. Timmy loved to play outside in the dirt. One day, Timmy found a shiny rock in the dirt. It was so pretty, he wanted to keep it.
+
+The next day, Timmy went to show his little sister, Lily. Lily saw the shiny rock and wanted to play with it too. Timmy was happy to share, so they both played with the rock together. The rocks were so fun to play with, and they had a great day. When it was time to go inside, Timmy put the rock in a special place where it could dry up and be special.
+    >> The little girl loved to play in the park, with the bright sunlight. The warm sand made it the best day.
+
+    >> One sunny day, the boy went outside and the sun was shining very brightly. Soon, the park was very wet, but the boy was still smiling. He smiled at this beautiful day.
+
+    >> In a small village, there lived a fearful owl. The owl was scared of everything around him. He had to face all the little animals in the forest.
+
+One day, the owl met a little mouse. The mouse said, "Hi, Owl! Do you want to play with me?" The owl was still fearful and said, "No, thank you. I am scared of the dark."
+
+The mouse said, "You are scared, Owl. I will help you." The owl let out a loud sigh. The mouse told the owl, "Don't be scared, I am here to help you. Together, we can make the dark go away
+    >> The puppy was so excited to explore the new land! 
+
+They ran around and played lots of games. The puppy barked, wagged her tail and ran around with joy. 
+
+After a while, the puppy got tired and decided to rest under a shady tree. They snuggled up together in the sunshine and had a great time. 
+
+The puppy and the little girl had had a wonderful day with each other in the sunshine.
+
+  [step  145] R=0.6296 | KL=9.970 | beta=0.1137 | 4.7s/step
+  [step  150] R=0.5107 | KL=9.263 | beta=0.1132 | 4.8s/step
+  [step  155] R=0.5529 | KL=9.948 | beta=0.1130 | 4.6s/step
+  [step  160] R=0.4358 | KL=9.483 | beta=0.1142 | 5.0s/step
+    >> Once upon a time, there was a little girl with a bright red dress. Her name was Emily and she was three years old.
+
+One day, Emily found a needle on the ground and decided to pick it up. She asked her daddy, "Daddy, can I use this needle?"
+
+Her daddy smiled and said, "Yes darling, you can use the needle to sew a little dress in the dress."
+
+So Emily used the needle to sew a beautiful dress in her bright red dress. She was so happy with the dress she was able to sew and she wore it every day.
+
+The end.
+
+    >> The little girl loved to look at the trees and the birds. One day, she saw a pretty butterfly in the park. The butterfly was yellow and very friendly. The girl wanted to bring the butterfly home with her. She put the butterfly in her hand and they became instant friends. The girl was very happy to have a new friend.
+
+    >> One sunny day, the boy went to the park to play. He saw his friend playing with a ball. The boy wanted to play too. He asked, "Can I play with you?" His friend smiled and said, "Of course!"
+
+The boy and his friend played together. They laughed and had fun. They shared the sport and the ball. After a while, the boy's friend said, "I am hungry. Let's share the ball." The boy smiled and said, "Okay!" They sat down and shared the ball. They both had a great time playing together. They were happy friends who loved to share.
+
+    >> In a small village, there lived a little boy named Tim. Tim had a big bowl of yummy ice cream. Every day, he would eat his yummy ice cream with his friends.
+
+One day, Tim and his friends decided to serve their favorite ice cream. They took big spoonfuls and swished their mouths to cool down. "Wow, this ice cream is so good!" said Tim's friend, Lily. "Thank you!" said Tim. They both smiled and ate their yummy ice cream together.
+
+After eating, Tim's mom took them outside. She said, "You two had a lot of fun today. Let's see if
+    >> The puppy was so excited to have a new home. Every day, the puppy would take its new home and they had so much fun. They would spend play together and have a great time. They lived happily ever after in their new home.
+
+  [step  165] R=0.5448 | KL=9.595 | beta=0.1146 | 4.7s/step
+  [step  170] R=0.5583 | KL=9.851 | beta=0.1133 | 4.6s/step
+  [step  175] R=0.5806 | KL=8.366 | beta=0.1106 | 4.6s/step
+  [step  180] R=0.4843 | KL=10.031 | beta=0.1089 | 4.7s/step
+    >> Once upon a time, there was a little boy named Adam. He loved to explore and was always seeking something new. 
+One day, Adam went for a walk in the park and started to look around. He soon found a shiny spike. Adam was very excited and wanted to show it to his mom. He ran back home and showed her the spike. 
+Adam decided to take one of the spikes home and make it a little longer than the others. He played with it for a few hours and then left the house. He had a wonderful afternoon playing with his new-found friend and the shiny spike.
+
+    >> The little girl loved to climb the tall wall and make a big, tall castle for her to play on.
+
+    >> One sunny day, the boy went to the park by himself. He had a big yellow ball in the sunshine.
+
+The grass was bright and green. He liked to play with the yellow ball. The boy threw the yellow ball high into the air and caught it. He was having so much fun.
+
+Then he started to miss the grass. He looked at the yellow ball and then let himself up. He let himself out and smiled. The sun was beginning to set.
+
+The young boy put away his yellow ball and said goodbye to the blue grass. He waved to his friend and smiled a big smile in the sunshine.
+
+    >> In a small village, there lived a little boy named Tom. Tom was an adorable boy who loved to play outside. One day, his mom told him, "Tom, it's time to wash the vegetables for dinner."
+
+Tom ran to the washroom and found the vegetable corner. He washed the big vegetables and put them in a bowl. He was so happy to help his mom wash the fruits. After he finished, they sat down to eat the delicious meal.
+
+Later that night, Tom looked up at his mom and said, "Mom, I'm so happy we washed the vegetables!" His mom smiled and said, "Thank you, Tom. You
+    >> The puppy was so excited to see the person he was hearing. 
+The person said, "Look, I'm a great photographer. I've taken pictures of animals for a photo now."
+The puppy was so happy and thanked the person for making him. 
+After that, the puppy went back to the park every day to see his new photo, and he was so excited to see what was inside.
+
+  [step  185] R=0.5024 | KL=9.274 | beta=0.1086 | 4.7s/step
+
+======================================================================
+  Done: 186 steps in 889s (4.8s/step avg)
+======================================================================
+
+======================================================================
+  SUMMARY — adv_norm/adv_global_lr5e6
+======================================================================
+  Total steps:    186
+  Final R (avg):  0.5175
+  Peak R:         0.6600
+  Final KL (avg): 9.862
+  Final beta:     0.1086
+--- Step 0 ---
+  Once upon a time, there was a curious little girl named Lily. One day, she went to the park with her mom and saw her friends playing on the swings. Lily wanted to join them, but her mom told her to wait for her turn.
+
+Suddenly, Lily saw a big dog running towards her friends. She ran and tried to escape, but the dog was too fast. Just as the dog was about to bite her, Lily's friend jumped up and scratched the dog's nose. Ben came running too, but it was too late. Lily's mom saw what happened and quickly ran to get help.
+
+The end.
+
+  The little girl loved to explore and feel the big blue ocean. One day, she went for a walk near the beach again and saw a white bird. The bird was singing a beautiful song and the wind was blowing gently through the trees.
+
+The little girl was so happy and started singing a song about being kind to animals along the way. The bird flew down to listen to her and they became friends. From that day on, they always went for walks together and the bird would sing a beautiful song. The little girl learned that being kind to animals is important and it's always good to sing a song that we can hear!
+
+  One sunny day, the boy went to the train station. He had a great time picking up things and going to see the trains. He got to a train station again and got on the train.
+
+The boy saw a long train with lots of seats. He pointed to the seat and said, "Mom, can I get a seat?" His mom smiled and said, "Sure. Let's go get one." 
+
+The mom and the boy paid the conductor and took the train home. The boy spent the whole day looking out the train and all the places it had been. When it was time to go home, all the passengers cheered for the little
+  In a small village, there lived a boy named Tim. Tim had a toy with a handle. He loved to play with his toy all day. One day, Tim's toy did not complete his game of hide and seek. He felt empty inside.
+
+Tim's friend, Sam, said, "Let's play hide and seek using this dull stick." But Tim wanted to play with his toy with the handle. He asked his other friends, "Can we play with the dull stick too?" Sam said, "No, we can't play with that. It's not nice to hurt others."
+
+Tim felt sad, but he did not want to break his
+  The puppy was so excited to see her new friend. He wanted to play too, but couldn't come over to the house. He was feeling left. One day, the puppy was feeling sad and he sat down.
+
+The puppy's owner decided to take him out for a walk. The dad was very polite to the puppy and thanked him for coming over. As they were walking, they passed a nearby cafe. They went inside and bought some delicious ice cream for having ice cream. 
+
+The puppy loved it! He was so happy that he started wagging his tail and barking excitedly. He followed his owner and enjoyed his ice cream, and
+--- Step 20 ---
+  Once upon a time, there was a fat chicken. The fat chicken was big, and she was very happy. One day, the fat chicken saw a pond. The pond had a lot of water in it. The fat chicken wanted to drink the water. So, the fat chicken went in the pond. She drank the water and made a big splash. She was happy now because the pond was a good place to be. The end.
+
+  The little girl loved to play with her football, and was so happy when it was time to go to bed. From then on, she learned to appreciate the things that came before she was going to bed.
+
+  One sunny day, the boy went to the park to play. He saw a large bird and thought it wanted to help. So, the boy thought of a plan and carefully put it closer to the bird.
+
+The bird was so happy it could see the boy. They became friends and the boy was very kind. He told the little boy that he was a loyal friend in the bird. The bird felt very special.
+
+They played together all day. The little boy was the happiest and most loyal child in the world. In the evenings, they would sit in the park, just like before time.
+
+The small boy and the bird always stayed by
+  In a small village, there lived a strong woman. She had a pretty pet. The strong woman and her pet went for a walk. They played together under a big tree. The brave woman and her pet were very happy.
+
+  The puppy was so excited to see the puppy that he started to wag his tail.
+
+One girl noticed the puppy and said, “Let me take you home.”
+
+Momma said, “Yes, let's take care of each other.”
+
+But the pup made a sad sound and put his head down on his heel. The girl asked, “What’s wrong?”
+
+The puppy spoke, “I’m lost and I need to find my home!”
+
+Momma said, “I will take you home. Let’s get
+--- Step 40 ---
+  Once upon a time, there was a little boy named Timmy. Timmy loved to ride his bike, but his mom said he had to wear his helmet and always wear a helmet so he wouldn't get hurt.
+
+One day, Timmy wanted to ride his bike in a crazy way, but his mom thought it was okay because she was proud of him for wearing his helmet. Timmy felt happy and went outside to explore. He rode his bike around and pretended he was going into the craziest place ever!
+
+  The little girl loved to use her brain again. The old man always made her feel good. When he had to go away, the little girl smiled and waved back with her brain.
+
+  One sunny day, the boy went outside that he had a picnic with his mummy. He ate a tasty sandwich and a juicy apple. Afterwards, he went running around the earth in the warm summer sunshine. He said goodbye to the earth, the warm sunshine, and everything in the park. When it was time to go home, the boy was so sleepy. The next day, he went on a picnic with his mummy and they had some lovely afternoon together playing games. The little boy and his mummy enjoyed the sunshine and the birds flying in the sky. 
+
+It was a lovely picnic and the boy was so happy. He had enjoyed being outside with his mummy and
+  In a small village, there lived a wealthy man. He had a lot of things that someone had lost. The wealthy man saw that the people in his village were very hungry. So, he decided to help them.
+
+The wealthy man went to the village and asked everyone what to feed. They told him that they were going to build something to eat. The wealthy man decided to take a lot of food from his village to help give things to the people in his village. He was happy to see how much food they all needed to fill the village.
+
+The wealthy man was happy to help all the people in the village. He found good food to bring to
+  The puppy was so excited to see the new thing he and the girl became the best of friends.
+
+--- Step 60 ---
+  Once upon a time, there was a little dog named Bob. Bob was a very happy dog, but he was always hungry. One day, while Bob was playing outside, he started to feel very tired. His belly hurt a lot, and he couldn't play anymore.
+
+Bob saw a little bird and wanted to help. He asked the bird to help him heal his tummy. The little bird was very kind and told Bob to rest and close his eyes for a long time. Bob did as he was told, and when he opened his eyes again, he felt much better. 
+
+From that day on, Bob spent his days playing outside with his friends
+  The little girl loved to visit her elderly friend every year. They were always having fun together and going on tough adventures.
+
+  One sunny day, the boy went outside and spread his toys from his room on a big sunny day. The boy put two colorful toys on some chairs and a soft blanket. He was happy and laughed as he looked all around his room. 
+
+The boy had so much fun making up stories with his toys. He felt so happy and excited when his friends came to explore his room. They all laughed and played together until it was time for the boy to go home. 
+
+The boy thanked his friends for being so polite and spending time with him. He smiled and waved goodbye as he ran to his house. He was so happy to have a nice day
+  In a small village, there lived a brave lawyer. The lawyer did many jobs to help his country, like clean and loyal. They were very happy to be together.
+
+One day, the brave lawyer had a big job to go to. He wanted to show his country to all their friends. He took all his hard work to help his country stay clean. All his friends were very proud of his hero. They all clapped and cheered when the brave lawyer remembered that they all looked up at the sky.
+
+  The puppy was so excited to be out exploring. He ran around and played with his friends, and he even went swimming in the creek. 
+At the end of the adventure, the puppy was so happy that he had gotten to explore. He knew he would stay on his farm and have lots of fun exploring. 
+The end.
+
+--- Step 80 ---
+  Once upon a time, there was a dog named Max. Max was very happy playing with his toys, but he was also lonely because he didn't have any friends to play with.
+
+One day, Max went to the park and saw some other dogs playing together. Max wanted to join in, but he didn't know how to play with the other dogs. He was too shy. 
+
+But then, a little girl named Lily came to the park. Lily saw Max and wanted to be his friend. The other dogs liked him and they had lots of fun together. Max was no longer lonely because he had friends to play with. He was very happy.
+  The little girl loved to play outside in the sun. She would run and jump and laugh all day long. One day, while the girl was playing, she looked up and saw a beautiful rainbow in the sky. She was so happy and she wanted to show everyone the rainbow. She ran to her house and started playing under the rainbow once more. The end.
+
+  One sunny day, the boy went outside to play. He saw a shiny object and wanted to try and pick it up. 
+
+But his parents said, "No, you must resist. You must stay away from the object."
+
+Little boy said, "Okay, mommy. I will resist."
+
+So the mother said, "Remember what your mommy said." 
+
+Little boy listened to her and stayed away from the shiny object. And he was very happy!
+
+  In a small village, there lived a happy family. They loved to celebrate together all the time. They had a lot of fun and yummy food to eat. The family was very happy.
+
+  The puppy was so excited to see the big dog and his big, fluffy coat. It was like the biggest and the most popular of all Spot's coat!
+
+Spot and the big dog became great friends. Every day they would play and have lots of fun. Whenever Joe came to visit the puppy he was always excited to have such a popular, fun pet.
+
+--- Step 100 ---
+  Once upon a time, there was a little green girl named Lily. She loved to play in the park with her friends. One sunny day, they found a big maze made of trees. Lily and her friends decided to play in the maze and have a lot of fun. 
+
+As the sun began to set, the friends went home for dinner. Lily's mom made her favorite food, spaghetti. It was so delicious and yummy! Lily ate all her dinner and thanked her mom for the great day they had together. 
+
+Finally, Lily was full and happy. She hugged her mom and went back outside to play. She ran back to her green garden
+  The little girl loved to play near the ocean. One day, while playing near the water, she saw a man with a bucket and a shovel. The man was collecting fish to build a house. The little girl thought the man was very kind and the man was happy to share his fish with her. They kept playing and building more fish together until it was time to go home. The little girl was happy that she saw the man at the beach and the ocean because it was so fun and she felt very peaceful and happy.
+
+  One sunny day, the boy went to the park to play. He saw his friend Sue playing by herself. Tom saw the friendly boy and was ready to play too. They played tag and ran around the park. They were both very happy. The sun began to set, and it was time to go home. Tom and Sue said goodbye to each other and went home. Tom felt happy that he met Sue and had a great day.
+
+  In a small village, there lived a kind mouse. The mouse loved to dance to her own rhythm every day. The mouse and the mouse were very happy together.
+
+One sunny day, the mouse danced to the rhythm of her new home. She was not shy anymore. The mouse and the bear danced to the rhythm every day together. They all became best friends, and the mouse and the bear were always happy together.
+
+  The puppy was so excited to see the mail that he ran around the room.
+
+The kitten ran around the house and meowed. The puppy said, "You're so cheerful!" The little boy was happy to hear that. He smiled and enjoyed the fun of the adventure. 
+
+The friendly puppy and the mail was happy. He was glad to have a new friend. The puppy and the little boy were very good friends and they enjoyed having adventures together.
+
+--- Step 120 ---
+  Once upon a time, there was a rabbit. The rabbit loved to play all day. One day, the rabbit found a shiny belt. The rabbit put the belt around his waist and looked very funny. The rabbit wagged his tail happily.
+
+  The little girl loved to play with the dog. She would bring toys, they would play all day long. The little girl and the dog were very happy together.
+
+  One sunny day, the boy went to the beach and filled his special hat with sand. He was happy when he was playing in the sand and enjoying his sand up and down the shore. He and his friends had a wonderful time at the beach that day. The lazy boy was happy to have had a wonderful day and filled his hat with sand.
+
+  In a small village, there lived a girl who loved to play with her toys. One day, she found a pretty shiny rock in her backyard. She showed it to her mom and asked if it would provide her with another shiny rock. Her mom said yes and gave her a big, heavy rock. The little girl was so happy and thanked her mom. She gave her mom a big kiss on the nose and her mom beamed with joy. The end.
+
+  The puppy was so excited to meet the lady. They played all night long. They sang and danced. The lady and the puppy were together to have fun. And the lady was very happy to have a new furry knot.
+
+--- Step 140 ---
+  Once upon a time, there was a little boy named Timmy. Timmy loved to play outside in the dirt. One day, Timmy found a shiny rock in the dirt. It was so pretty, he wanted to keep it.
+
+The next day, Timmy went to show his little sister, Lily. Lily saw the shiny rock and wanted to play with it too. Timmy was happy to share, so they both played with the rock together. The rocks were so fun to play with, and they had a great day. When it was time to go inside, Timmy put the rock in a special place where it could dry up and be special.
+  The little girl loved to play in the park, with the bright sunlight. The warm sand made it the best day.
+
+  One sunny day, the boy went outside and the sun was shining very brightly. Soon, the park was very wet, but the boy was still smiling. He smiled at this beautiful day.
+
+  In a small village, there lived a fearful owl. The owl was scared of everything around him. He had to face all the little animals in the forest.
+
+One day, the owl met a little mouse. The mouse said, "Hi, Owl! Do you want to play with me?" The owl was still fearful and said, "No, thank you. I am scared of the dark."
+
+The mouse said, "You are scared, Owl. I will help you." The owl let out a loud sigh. The mouse told the owl, "Don't be scared, I am here to help you. Together, we can make the dark go away
+  The puppy was so excited to explore the new land! 
+
+They ran around and played lots of games. The puppy barked, wagged her tail and ran around with joy. 
+
+After a while, the puppy got tired and decided to rest under a shady tree. They snuggled up together in the sunshine and had a great time. 
+
+The puppy and the little girl had had a wonderful day with each other in the sunshine.
+
+--- Step 160 ---
+  Once upon a time, there was a little girl with a bright red dress. Her name was Emily and she was three years old.
+
+One day, Emily found a needle on the ground and decided to pick it up. She asked her daddy, "Daddy, can I use this needle?"
+
+Her daddy smiled and said, "Yes darling, you can use the needle to sew a little dress in the dress."
+
+So Emily used the needle to sew a beautiful dress in her bright red dress. She was so happy with the dress she was able to sew and she wore it every day.
+
+The end.
+
+  The little girl loved to look at the trees and the birds. One day, she saw a pretty butterfly in the park. The butterfly was yellow and very friendly. The girl wanted to bring the butterfly home with her. She put the butterfly in her hand and they became instant friends. The girl was very happy to have a new friend.
+
+  One sunny day, the boy went to the park to play. He saw his friend playing with a ball. The boy wanted to play too. He asked, "Can I play with you?" His friend smiled and said, "Of course!"
+
+The boy and his friend played together. They laughed and had fun. They shared the sport and the ball. After a while, the boy's friend said, "I am hungry. Let's share the ball." The boy smiled and said, "Okay!" They sat down and shared the ball. They both had a great time playing together. They were happy friends who loved to share.
+
+  In a small village, there lived a little boy named Tim. Tim had a big bowl of yummy ice cream. Every day, he would eat his yummy ice cream with his friends.
+
+One day, Tim and his friends decided to serve their favorite ice cream. They took big spoonfuls and swished their mouths to cool down. "Wow, this ice cream is so good!" said Tim's friend, Lily. "Thank you!" said Tim. They both smiled and ate their yummy ice cream together.
+
+After eating, Tim's mom took them outside. She said, "You two had a lot of fun today. Let's see if
+  The puppy was so excited to have a new home. Every day, the puppy would take its new home and they had so much fun. They would spend play together and have a great time. They lived happily ever after in their new home.
+
+--- Step 180 ---
+  Once upon a time, there was a little boy named Adam. He loved to explore and was always seeking something new. 
+One day, Adam went for a walk in the park and started to look around. He soon found a shiny spike. Adam was very excited and wanted to show it to his mom. He ran back home and showed her the spike. 
+Adam decided to take one of the spikes home and make it a little longer than the others. He played with it for a few hours and then left the house. He had a wonderful afternoon playing with his new-found friend and the shiny spike.
+
+  The little girl loved to climb the tall wall and make a big, tall castle for her to play on.
+
+  One sunny day, the boy went to the park by himself. He had a big yellow ball in the sunshine.
+
+The grass was bright and green. He liked to play with the yellow ball. The boy threw the yellow ball high into the air and caught it. He was having so much fun.
+
+Then he started to miss the grass. He looked at the yellow ball and then let himself up. He let himself out and smiled. The sun was beginning to set.
+
+The young boy put away his yellow ball and said goodbye to the blue grass. He waved to his friend and smiled a big smile in the sunshine.
+
+  In a small village, there lived a little boy named Tom. Tom was an adorable boy who loved to play outside. One day, his mom told him, "Tom, it's time to wash the vegetables for dinner."
+
+Tom ran to the washroom and found the vegetable corner. He washed the big vegetables and put them in a bowl. He was so happy to help his mom wash the fruits. After he finished, they sat down to eat the delicious meal.
+
+Later that night, Tom looked up at his mom and said, "Mom, I'm so happy we washed the vegetables!" His mom smiled and said, "Thank you, Tom. You
+  The puppy was so excited to see the person he was hearing. 
+The person said, "Look, I'm a great photographer. I've taken pictures of animals for a photo now."
+The puppy was so happy and thanked the person for making him. 
+After that, the puppy went back to the park every day to see his new photo, and he was so excited to see what was inside.
+
+
+Plots saved to ./outputs/adv_norm/adv_global_lr5e6/
